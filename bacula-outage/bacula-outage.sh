@@ -157,7 +157,7 @@ options=("Save"\
 	"Quit"\
 	)
 echo
-echo "Bacula Recovery Tool"
+echo "Bacula Outage Tool"
 echo
 select opt in "${options[@]}"
 do
