@@ -37,8 +37,9 @@ bacula-outage
 
 ## Funcionalities
 
+- Automate the process to interrupt and recovery Bacula jobs that are running
 - Save the current jobs in a file to re-run the jobs later
-- Cancel the running jobs to permit maintenance in Bacula
+- Cancel all the running jobs to permit maintenance in Bacula
 - Recover the previous canceled jobs
 - Recover the previous jobs setting up different priorities thus allowing a correct sequence
 - Recover the jobs with an interval between the different levels thus allowing then to run in the correct sequence
