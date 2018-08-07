@@ -29,58 +29,30 @@ Download the bacula-outage.sh file and put them in your system
 mv bacula-outage.sh /usr/sbin/bacula-outage
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+then run the bacula-outage command:
 
 ```
-Give an example
+bacula-outage
 ```
 
-### And coding style tests
+## Funcionalities
 
-Explain what these tests test and why
+- Save the current jobs in a file to re-run the jobs later
+- Cancel the running jobs to permit maintenance in Bacula
+- Recover the previous canceled jobs
+- Recover the previous jobs setting up different priorities thus allowing a correct sequence
+- Recover the jobs with an interval between the different levels thus allowing then to run in the correct sequence
+- Menu help to explain the Bacula Outage Tool usage
 
-```
-Give an example
-```
+![Bacula Outage Tool](https://github.com/molinux/bacula-tools/blob/master/bacula-outage/bacula-outage-001.png)
 
-## Deployment
+![Bacula Outage Tool](https://github.com/molinux/bacula-tools/blob/master/bacula-outage/bacula-outage-002.png)
 
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Marcus "Molinux" Molinero** - *Initial work* - [Molinux](https://github.com/molinux)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+ Redistributions of source code must retain the above copyright notice, and the name of the original author.
