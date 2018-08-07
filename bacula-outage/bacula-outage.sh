@@ -26,6 +26,9 @@
 ### Script by Molinero <molinuxbr@gmail.com> 
 ##
 #
+## License
+# Redistributions of source code must retain the above copyright notice, and the name of the original author.
+#
 # For debug purposes, uncomment the command below 
 # set -x
 #
