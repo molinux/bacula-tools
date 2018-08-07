@@ -35,8 +35,9 @@
 # GLOBAL VARIABLES
 #
 
-BOF=$HOME/bacula-outage-jobs-to-run.txt
-CATJOB=BackupCatalogCGG
+BOF=$HOME/bacula-outage-jobs-to-run.txt   # Where the job list will be save
+CATJOB=MyCatalog   # Catalog name
+CATPOOL=CatalogPOOL    # Catalog pool
 
 
 #
@@ -155,8 +156,8 @@ run_jobs() {
 				else
 					when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 30 seconds"`
 					# Just for test and avoid to make some shit
-					echo "run job=$job level=$level pool=CATC priority=11 when=\"$when\" yes" 
-					#echo "run job=$job level=$level pool=CATC priority=11 when=\"$when\" yes" | bconsole
+					echo "run job=$job level=$level pool=$CATPOOL priority=11 when=\"$when\" yes" 
+					#echo "run job=$job level=$level pool=$CATPOOL priority=11 when=\"$when\" yes" | bconsole
 				fi
 			fi
 		done
