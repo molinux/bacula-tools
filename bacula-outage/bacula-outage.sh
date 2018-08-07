@@ -23,7 +23,7 @@
 # - CANCEL: change to query running jobs instead of run status dir (too slow !!)
 #
 ##
-### Script by Molinero <marcus.molinero@cgg.com> 
+### Script by Molinero <molinuxbr@gmail.com> 
 ##
 #
 # For debug purposes, uncomment the command below 
