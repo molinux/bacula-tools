@@ -81,7 +81,7 @@ menu_help() {
 	echo -e "Cancel\t Cancel the current jobs without save them"
 	echo -e "Recover\t Re-run previous jobs saved in a file"
 	echo -e "Help\t Print the help menu"
-	echo -e "Quit\t Terminate the $0"
+	echo -e "Quit\t Terminate the `basename $0`"
 	echo
 }
 
