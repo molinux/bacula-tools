@@ -12,6 +12,9 @@
 # - get the jobs from bacula ( @output )
 # - ask if the operator wants to save the currently backups in a file to run them later
 #
+# Relase: 2018-08-07
+# - fix the recovery job when doesn't exist the $BOF file
+#
 # If for some reason you need to cancel and rerun all the current jobs in Bacula
 # the <<< Bacula Run Jobs >>> script will do the work for you
 # 
@@ -20,25 +23,28 @@
 # - CANCEL: change to query running jobs instead of run status dir (too slow !!)
 #
 ##
-### Script by Molinux <molinuxbr@gmail.com>
+### Script by Molinero <marcus.molinero@cgg.com> 
 ##
 #
 # For debug purposes, uncomment the command below 
 # set -x
 #
 
+
 #
 # GLOBAL VARIABLES
 #
 
-BOF=$HOME/bacula-outage-jobs-to-run.txt   #File where jobs will be save
-CATJOB=MyCatalog   # Catalog Backup Job
+BOF=$HOME/bacula-outage-jobs-to-run.txt
+CATJOB=BackupCatalogCGG
+
 
 #
 # FUNCTIONS
 #
 
 check_queue() {
+
 # 	For tests purpose
 #	RC=1
 #	if [ $RC -eq 1 ]; then	
@@ -88,64 +94,73 @@ menu_help() {
 save_jobs() {
 	echo "status dir" | bconsole > $BOF
 	echo "Jobs saved in $BOF file"
+
 }
 
 run_jobs() {
 
-# For test purposes, uncomment one of these lines below
-#readarray -t runt <<< "$(echo "status dir" | bconsole)"
-#readarray -t runt <<< "$(cat jobs-to-run.txt)"
-#readarray -t runt <<< "$(cat jobs-to-run-Catalog.txt)"
+	if [ ! -e $BOF ]; then
+		echo
+		echo "The $BOF file doesn't exist or there aren't any jobs to recover"
+		echo
+		menu_help
+	else
 
-readarray -t runt <<< "$(cat $BOF)"
+		# For test purposes, uncomment one of these lines below
+		#readarray -t runt <<< "$(echo "status dir" | bconsole)"
+		#readarray -t runt <<< "$(cat jobs-to-run.txt)"
+		#readarray -t runt <<< "$(cat jobs-to-run-Catalog.txt)"
 
-for (( i = 0; i < ${#runt[@]}; i++ ))
-do
-	r=`printf "%s\n" "${runt[$i]}" | awk '{ print $7 }'`
-	if [[ $r == "is" || $r == "has" ]]
-	then
-		job=$(printf "%s\n" "${runt[$i]}" | awk '{ print $6 }')
-		level=$(printf "%s\n" "${runt[$i]}" | awk '{ print $3 }')
-        	pool="`echo $level | tr [:lower:] [:upper:]`"
-		if [[ $job != $CATJOB ]] ; then
-				case $level in
-					Base)
-						level=Base
-						priority=7
-						when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 10 seconds"`
-						;;
-					Full)
-						level=Full
-						priority=8
-						when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 20 seconds"`
-						;;
-					Diff)
-						level=Differential
-						priority=9
-						when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 30 seconds"`
-						;;
-					Incr)
-						level=Incremental
-						priority=10
-						when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 40 seconds"`
-						;;
-					*)
-						echo "Level <<< $level >>> or priority <<< $priority >>> not recognized" 
-						echo "Please use a valid backup level"
-						exit 0
-				esac
-			# Just for test and avoid to make some shit
-			echo "run job=$job level=$level pool=$pool priority=$priority when=\"$when\" yes" 
-			# Are you ready to play this game ? So... uncomment the line below and... Let's do it !!!	
-			#echo "run job=$job level=$level pool=$pool priority=$priority when=\"$when\" yes" | bconsole
-		else
-			when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 30 seconds"`
-			# Just for test and avoid to make some shit
-			echo "run job=$job level=$level pool=CATC priority=11 when=\"$when\" yes" 
-			#echo "run job=$job level=$level pool=CATC priority=11 when=\"$when\" yes" | bconsole
-		fi
+		readarray -t runt <<< "$(cat $BOF)"
+
+		for (( i = 0; i < ${#runt[@]}; i++ ))
+		do
+			r=`printf "%s\n" "${runt[$i]}" | awk '{ print $7 }'`
+			if [[ $r == "is" || $r == "has" ]]
+			then
+				job=$(printf "%s\n" "${runt[$i]}" | awk '{ print $6 }')
+				level=$(printf "%s\n" "${runt[$i]}" | awk '{ print $3 }')
+				pool="`echo $level | tr [:lower:] [:upper:]`"
+				if [[ $job != $CATJOB ]] ; then
+						case $level in
+							Base)
+								level=Base
+								priority=7
+								when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 10 seconds"`
+								;;
+							Full)
+								level=Full
+								priority=8
+								when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 20 seconds"`
+								;;
+							Diff)
+								level=Differential
+								priority=9
+								when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 30 seconds"`
+								;;
+							Incr)
+								level=Incremental
+								priority=10
+								when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 40 seconds"`
+								;;
+							*)
+								echo "Level <<< $level >>> or priority <<< $priority >>> not recognized" 
+								echo "Please use a valid backup level"
+								exit 0
+						esac
+					# Just for test and avoid to make some shit
+					echo "run job=$job level=$level pool=$pool priority=$priority when=\"$when\" yes" 
+					# Are you ready to play this game ? So... uncomment the line below and... Let's do it !!!	
+					#echo "run job=$job level=$level pool=$pool priority=$priority when=\"$when\" yes" | bconsole
+				else
+					when=`date +"%Y-%m-%d %H:%M:%S" -d "now + 30 seconds"`
+					# Just for test and avoid to make some shit
+					echo "run job=$job level=$level pool=CATC priority=11 when=\"$when\" yes" 
+					#echo "run job=$job level=$level pool=CATC priority=11 when=\"$when\" yes" | bconsole
+				fi
+			fi
+		done
 	fi
-done
 }
 
 
@@ -177,7 +192,7 @@ do
 		"Recover")
 			echo "Recovering jobs..."
 			run_jobs
-			break
+#			break
 			;;
 		"Help")
 			echo "Help"
