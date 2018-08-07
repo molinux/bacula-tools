@@ -52,7 +52,7 @@ bacula-outage
 
 ## Authors
 
-* **Marcus "Molinux" Molinero** - *Initial work* - [Molinux](https://github.com/molinux)
+* **Marcus "Molinux" Molinero** - *Development* - [Molinux](https://github.com/molinux)
 
 ## License
 
