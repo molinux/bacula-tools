@@ -1,8 +1,13 @@
 #!/bin/bash
 # Script to install Bacula with packages
 #
-# Author:  Wanderlei Huttel
-# Email:   wanderlei@bacula.com.br
+# Author:      Wanderlei Huttel
+# Email:       wanderlei@bacula.com.br
+# Released by: Marcus Molinux Molinero
+# Email:       molinuxbr@gmail.com
+# 
+# Check ny other Bacula scripts and tools at: https://github.com/molinux/bacula-tools
+#
 #version="1.0.7 - 19 May 2020"
 version="1.0.8 - 04 Jul 2022"
 
