@@ -1,19 +1,23 @@
 #!/bin/bash
 # Script to install Bacula with packages
 #
-# Author:      Wanderlei Huttel
-# Email:       wanderlei@bacula.com.br
-# Released by: Marcus Molinux Molinero
-# Email:       molinuxbr@gmail.com
-# 
-# Check ny other Bacula scripts and tools at: https://github.com/molinux/bacula-tools
-#
-#version="1.0.7 - 19 May 2020"
-version="1.0.8 - 04 Jul 2022"
+# Author:  Wanderlei Huttel
+# Email:   wanderlei@bacula.com.br
+# Reviewer: Marcus "Molinux" Molinero
+# Email:    molinuxbr@gmail.com
+# version="1.0.7 - 19 May 2020"
+# version="1.0.8 - 04 Jul 2022"
+version="1.0.9 - 28 Mar 2023"
+
+# BUG: Fazer o yum update antes de informar a versão do Bacula
+
 
 # Release 1.0.8 - by Molinux
-# - Oracle Linux support in this release !
-# - Fixed url for Bacula 11.0.6 version in rpm repository (rhel-{7,8} instead of el{7,8})
+# Oracle support in this release !
+
+# Release 1.0.9 - by Molinux
+# Bacula 13.0.1 and above version has been changed Debian based repository had changed its 
+# Thanks Ueslei for your help !
 
 
 #===============================================================================
@@ -63,8 +67,12 @@ function create_bacula_repository()
     done
     read -p " Type your the Bacula Version: " bacula_version
     
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
-        url="http://www.bacula.org/packages/${bacula_key}/debs/${bacula_version}/${codename}/amd64"
+    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then 
+        if [ "$bacula_version" > "13.0.0" ]; then
+            url="http://www.bacula.org/packages/${bacula_key}/debs/${bacula_version}/dists/${codename}/main/binary-amd64"
+	else
+            url="http://www.bacula.org/packages/${bacula_key}/debs/${bacula_version}/${codename}/amd64"
+        fi
         echo "# Bacula Community
 deb ${url} ${codename} main" > /etc/apt/sources.list.d/bacula-community.list
     
@@ -193,10 +201,10 @@ function menu()
         clear
         echo " =================================================="
         echo " Bacula Community Package Install"
-        echo " Based on Wanderlei Huttel version"
+        echo " Author: Based on Wanderlei Huttel version"
         echo " Author: Marcus Molinux Molinero"
         echo " Email:  marcus.molinero@bacula.com.br"
-        echo " OS Supported: Debian | Ubuntu | CentOS | Oracle"
+        echo " OS Supported: Debian | Ubuntu | CentOS"
         echo " Version: ${version}"
         echo " =================================================="
         echo
