@@ -17,7 +17,7 @@ version="1.0.9 - 28 Mar 2023"
 
 # Release 1.0.9 - by Molinux
 # Bacula 13.0.1 and above version has been changed Debian based repository had changed its 
-# Thanks Ueslei for your help !
+# Thanks Ueslei Souza for your help !
 
 
 #===============================================================================
