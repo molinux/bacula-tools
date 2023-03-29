@@ -16,7 +16,7 @@ version="1.0.9 - 28 Mar 2023"
 # Oracle support in this release !
 
 # Release 1.0.9 - by Molinux
-# Bacula 13.0.1 and above version has been changed Debian based repository had changed its 
+# Bacula 13.0.1 and above version has been changed debian based repository had changed its structure
 # Thanks Ueslei Souza for your help !
 
 
@@ -69,7 +69,7 @@ function create_bacula_repository()
     
     if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then 
         if [ "$bacula_version" > "13.0.0" ]; then
-            url="http://www.bacula.org/packages/${bacula_key}/debs/${bacula_version}/dists/${codename}/main/binary-amd64"
+            url="http://www.bacula.org/packages/${bacula_key}/debs/${bacula_version}/"
 	else
             url="http://www.bacula.org/packages/${bacula_key}/debs/${bacula_version}/${codename}/amd64"
         fi
