@@ -7,7 +7,8 @@
 # Email:    molinuxbr@gmail.com
 # version="1.0.7 - 19 May 2020"
 # version="1.0.8 - 04 Jul 2022"
-version="1.0.9 - 28 Mar 2023"
+# version="1.0.9 - 28 Mar 2023"
+version="1.1.0 - 12 Apr 2023"
 
 # BUG: Fazer o yum update antes de informar a versão do Bacula
 
@@ -18,6 +19,11 @@ version="1.0.9 - 28 Mar 2023"
 # Release 1.0.9 - by Molinux
 # Bacula 13.0.1 and above version has been changed debian based repository had changed its structure
 # Thanks Ueslei Souza for your help !
+
+# Release 1.1.0 - by Molinux
+# Now it's possible to install only bacula client
+
+
 
 
 #===============================================================================
@@ -192,6 +198,29 @@ function install_with_postgresql()
     echo
 }
 
+# Install PostgreSQL
+function install_only_client()
+{
+    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+        apt-get update
+        apt-get install -y bacula-client
+
+    elif [ "$OS" == "centos" ]; then
+        yum install -y bacula-client
+    fi
+
+    systemctl enable bacula-fd.service
+
+    systemctl start bacula-fd.service
+
+    for i in $(ls /opt/bacula/bin); do
+        ln -s /opt/bacula/bin/$i /usr/sbin/$i;
+    done
+    echo
+    echo "Bacula Client installed with success!"
+    echo
+}
+
 #===============================================================================
 # Menu
 function menu()
@@ -211,7 +240,8 @@ function menu()
         echo " What do you want to do?"
         echo "   1) Install Bacula with PostgreSQL"
         echo "   2) Install Bacula with MySQL"
-        echo "   3) Exit"
+        echo "   3) Install Bacula Client only"
+        echo "   4) Exit"
         read -p " Select an option [1-3]: " option
         echo
         case $option in
@@ -223,7 +253,11 @@ function menu()
                install_with_mysql
                read -p "Press [enter] key to continue..." readenterkey
                ;;
-            3) echo
+            3) # Install only Bacula Client
+               install_only_client
+               read -p "Press [enter] key to continue..." readenterkey
+               ;;
+            4) echo
                exit
                ;;
         esac
