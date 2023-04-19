@@ -1,6 +1,12 @@
-DROP TABLE IF EXISTS `myTable`;
+DROP DATABASE IF EXISTS `cadastro`;
 
-CREATE TABLE `myTable` (
+CREATE DATABASE `cadastro`;
+
+USE `cadastro`;
+
+DROP TABLE IF EXISTS `usuarios`;
+
+CREATE TABLE `usuarios` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
   `name` varchar(255) default NULL,
   `email` varchar(255) default NULL,
@@ -11,123 +17,123 @@ CREATE TABLE `myTable` (
   PRIMARY KEY (`id`)
 ) AUTO_INCREMENT=1;
 
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Zachary Hamilton","metus.in@aol.org","Brazil","Itajaí","(98) 94719-0815","Eget Industries"),
-  ("Daryl Hayes","ac.mattis@icloud.couk","Brazil","Maracanaú","(86) 94758-2496","Eget Massa Suspendisse Corporation"),
-  ("Marvin Robles","donec.fringilla@outlook.ca","Brazil","Campina Grande","(61) 98404-7841","Sagittis Felis Inc."),
-  ("Ira Morse","nulla@yahoo.edu","Brazil","Chapecó","(43) 91361-8982","Faucibus Morbi Associates"),
-  ("Germaine Parsons","mattis@outlook.net","Brazil","Luziânia","(45) 95637-4852","Nam Porttitor Associates"),
-  ("Tad Lancaster","sed@google.com","Brazil","Luziânia","(33) 97722-3849","Massa Institute"),
-  ("Alexander Ross","nisi.magna.sed@outlook.org","Brazil","Governador Valadares","(38) 90407-7887","In Cursus Et Consulting"),
-  ("Akeem Anthony","aliquam.ultrices@hotmail.ca","Brazil","João Pessoa","(45) 91352-2693","In Institute"),
-  ("Sydney Stout","phasellus.at.augue@protonmail.couk","Brazil","Betim","(53) 91757-1060","Magna Ltd"),
-  ("Hamilton Gilmore","mollis.dui.in@hotmail.couk","Brazil","Timon","(78) 94388-5846","Sagittis Felis Donec LLP");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Clio Araujo","dolor@protonmail.org","Brazil","Campina Grande","(50) 95005-8608","Arcu Institute"),
+  ("Kenneth Mendes","dui@google.com.br","Brazil","Uberaba","(12) 91644-7846","Mauris Blandit Enim Associates"),
+  ("Barclay Bento","donec@protonmail.com.br","Brazil","Sete Lagoas","(35) 93684-0075","Eu Institute"),
+  ("Amber de Abreu","cursus.vestibulum@yahoo.org","Brazil","Juazeiro do Norte","(32) 91230-5230","Rhoncus Donec Corp."),
+  ("Carly Bento","tellus.phasellus@protonmail.org","Brazil","Codó","(92) 95164-8294","Enim Curabitur PC"),
+  ("Anjolie Antunes","eros.proin.ultrices@yahoo.org","Brazil","Santarém","(25) 96391-4018","Gravida Mauris Institute"),
+  ("Louis Ferreira","nunc.ac@google.com","Brazil","Belford Roxo","(64) 95575-4389","Posuere Enim Nisl Corp."),
+  ("Berk Paulino","nec.luctus.felis@protonmail.edu","Brazil","Piracicaba","(89) 91184-7372","Elit Pretium Et Foundation"),
+  ("Mia de Campos","arcu@aol.edu","Brazil","Marabá","(57) 95423-6815","Blandit Mattis Cras Ltd"),
+  ("Callum Bastos","nec@hotmail.net","Brazil","Paulista","(92) 92384-4455","Nunc Associates");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Mohammad Petty","vitae.odio@google.org","Brazil","Maranguape","(25) 97676-2832","Feugiat Metus Sit Industries"),
-  ("Bradley Cantu","convallis@google.net","Brazil","Abaetetuba","(25) 97931-3421","Pede Ultrices A Inc."),
-  ("Amos Sosa","nonummy.ultricies@outlook.couk","Brazil","Cascavel","(67) 90846-9368","Neque Non Ltd"),
-  ("Ebony Stanley","arcu.vestibulum@aol.net","Brazil","Colombo","(41) 92745-7211","Mauris Corp."),
-  ("Ferris Bradford","aliquam.eu.accumsan@hotmail.couk","Brazil","Campinas","(63) 94147-6847","Augue Associates"),
-  ("Eugenia Clarke","cubilia.curae@protonmail.net","Brazil","Ipatinga","(85) 95845-7082","Malesuada Malesuada Associates"),
-  ("Martina Floyd","pulvinar.arcu@protonmail.com","Brazil","Blumenau","(81) 98630-4139","Velit Egestas Corporation"),
-  ("Honorato Mccall","urna@outlook.net","Brazil","Águas Lindas de Goiás","(34) 94176-2576","Mollis LLP"),
-  ("Wyatt Williamson","duis@icloud.edu","Brazil","São Gonçalo","(23) 98738-1769","Scelerisque Neque Sed Associates"),
-  ("Aileen Sandoval","eu.tellus@protonmail.edu","Brazil","Guarapuava","(28) 91430-1182","Sem Incorporated");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Josephine Queiroz","proin.nisl@hotmail.net","Brazil","Crato","(73) 95422-3167","Consectetuer Cursus Inc."),
+  ("Ali Moreira","sed@icloud.com.br","Brazil","Caxias do Sul","(54) 92195-6606","Suspendisse Commodo Inc."),
+  ("Yoko Paiva","aliquam.auctor.velit@hotmail.com.br","Brazil","Cametá","(22) 92383-6692","Eu Inc."),
+  ("Jason Soares","vulputate.velit@aol.net","Brazil","Nova Iguaçu","(44) 94258-8671","Enim Commodo LLP"),
+  ("Mollie do Nascimento","vivamus@yahoo.net","Brazil","Blumenau","(34) 92374-6321","Tristique Corp."),
+  ("Carlos Faria","integer.aliquam@google.com.br","Brazil","Nova Iguaçu","(78) 90431-5356","Hendrerit A Arcu Corp."),
+  ("Tamekah Muniz","euismod.ac@outlook.edu","Brazil","Ipatinga","(42) 98231-2546","Eros Proin Ltd"),
+  ("Mollie da Rosa","risus.donec@google.org","Brazil","Osasco","(59) 97976-4556","Proin Mi Foundation"),
+  ("Jemima Inacio","purus.ac@yahoo.edu","Brazil","Porto Alegre","(58) 96267-6016","Duis A Incorporated"),
+  ("Sasha Moura","quis.lectus@aol.edu","Brazil","Ribeirão Preto","(48) 97620-6673","Erat Vel Pede LLP");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Buffy Estes","lorem.ac.risus@aol.couk","Brazil","Salvador","(43) 92143-1921","Nunc Pulvinar Company"),
-  ("Isadora Charles","egestas.fusce@yahoo.couk","Brazil","Bayeux","(13) 96746-6297","Porttitor Scelerisque Corp."),
-  ("Nayda Cotton","a.aliquet@outlook.couk","Brazil","Anápolis","(38) 93574-8882","Auctor Velit Aliquam Industries"),
-  ("Kuame Craft","vehicula.aliquet.libero@protonmail.ca","Brazil","Blumenau","(46) 96726-6271","Pellentesque Habitant LLP"),
-  ("Wallace Oneil","ullamcorper.eu.euismod@google.edu","Brazil","Criciúma","(28) 95208-2272","Vehicula Associates"),
-  ("Fulton Nichols","sem.eget.massa@protonmail.net","Brazil","São João de Meriti","(78) 95422-6317","Auctor Quis Limited"),
-  ("Unity Mullen","sagittis@icloud.couk","Brazil","Caucaia","(93) 98875-0819","Dapibus Ligula Incorporated"),
-  ("Hayes Mccullough","lectus.pede.ultrices@google.couk","Brazil","Salvador","(48) 90589-0102","Aliquam Gravida Incorporated"),
-  ("Kylynn Benjamin","dignissim.maecenas@yahoo.net","Brazil","Santa Maria","(46) 93253-2058","Quam Elementum At Limited"),
-  ("Illana Herman","amet.consectetuer.adipiscing@icloud.ca","Brazil","Petrópolis","(78) 93383-0395","Amet Ornare Incorporated");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Declan da Conceiçao","bibendum@protonmail.com.br","Brazil","Sobral","(62) 94110-4528","Amet Orci Ut Corporation"),
+  ("Xanthus Teodoro","arcu.curabitur@yahoo.org","Brazil","Maranguape","(52) 92674-1362","Sed Eget Lacus Associates"),
+  ("Phyllis Antunes","aenean.gravida@icloud.edu","Brazil","Foz do Iguaçu","(80) 93806-8605","Elit Company"),
+  ("Vladimir Das Chagas","aliquet.odio@aol.org","Brazil","Ribeirão das Neves","(53) 91432-1418","Dolor Nonummy Foundation"),
+  ("Rhonda da Conceiçao","eu.accumsan@aol.com.br","Brazil","Santa Inês","(81) 97380-5345","Nulla PC"),
+  ("Jemima Galdino","ullamcorper.nisl.arcu@icloud.net","Brazil","Porto Alegre","(16) 93337-1944","Non Lobortis Quis LLP"),
+  ("Merritt Batista","vulputate.nisi@yahoo.net","Brazil","Caxias do Sul","(93) 98868-8145","Sem Institute"),
+  ("Charles da Silveira","erat.sed.nunc@hotmail.edu","Brazil","Chapecó","(82) 91707-8370","Mauris Incorporated"),
+  ("Xavier Fonseca","ipsum.ac.mi@outlook.com.br","Brazil","Itapipoca","(85) 92108-4378","Odio Phasellus PC"),
+  ("Emerson Moura","per.inceptos@protonmail.org","Brazil","Cajazeiras","(64) 91640-8546","Dui In Sodales Foundation");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Hyacinth Collins","consequat.lectus.sit@protonmail.ca","Brazil","Sobral","(92) 91256-7441","Vestibulum Ante Ipsum Associates"),
-  ("Kamal Cline","arcu@outlook.org","Brazil","Anápolis","(70) 94579-1373","Ut Quam Vel Institute"),
-  ("Jameson Hubbard","dolor.donec.fringilla@aol.net","Brazil","Itajaí","(56) 98899-3561","Nullam Ut Corp."),
-  ("Jared Mooney","donec.feugiat.metus@hotmail.org","Brazil","Contagem","(32) 91664-2259","Auctor Ullamcorper Inc."),
-  ("Dora English","aliquam@aol.org","Brazil","Jaboatão dos Guararapes","(83) 96516-2294","Sit Amet Incorporated"),
-  ("Jorden Langley","malesuada@protonmail.couk","Brazil","Campos dos Goytacazes","(86) 91877-3828","Tempor Industries"),
-  ("Caesar Mack","ornare@outlook.couk","Brazil","Bayeux","(29) 90890-2754","Nam Porttitor Institute"),
-  ("Gareth Britt","consequat.purus.maecenas@aol.ca","Brazil","Nova Iguaçu","(87) 91911-3277","Est Congue A PC"),
-  ("Candice Hester","sem.egestas.blandit@yahoo.couk","Brazil","Osasco","(21) 94244-2512","Maecenas Ltd"),
-  ("Quintessa Kennedy","a.facilisis.non@icloud.couk","Brazil","Sete Lagoas","(27) 98866-4324","Augue Id Industries");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Marny de Santana","auctor@aol.org","Brazil","Fortaleza","(48) 96727-5463","Tellus Institute"),
+  ("Hakeem Guedes","ipsum.dolor@icloud.net","Brazil","Florianópolis","(14) 97901-6502","Mauris Id Sapien Incorporated"),
+  ("TaShya Maciel","magna.a@protonmail.edu","Brazil","São Luís","(83) 95497-5617","Fusce Aliquet Magna Incorporated"),
+  ("Amanda de Paula","dui@outlook.com.br","Brazil","Bacabal","(74) 93652-8501","Proin Dolor Incorporated"),
+  ("Belle Peixoto","aliquet@yahoo.org","Brazil","Novo Hamburgo","(29) 93376-8264","Sociis Natoque Limited"),
+  ("Lareina Guedes","habitant@icloud.net","Brazil","Criciúma","(87) 94219-4055","Phasellus At Corp."),
+  ("Thor Antunes","magna.et.ipsum@icloud.com","Brazil","Campos dos Goytacazes","(13) 90388-5461","Purus Corp."),
+  ("Velma Queiroz","tellus.imperdiet.non@yahoo.com","Brazil","Maracanaú","(72) 91147-2658","Fermentum Industries"),
+  ("Hayden Sampaio","luctus.et@icloud.org","Brazil","São José","(82) 96852-5183","Faucibus Orci Luctus Institute"),
+  ("Axel Barreto","nec@google.net","Brazil","Timon","(73) 95741-2432","Natoque Penatibus Et Corporation");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Jael Perez","quis.tristique@google.couk","Brazil","Bayeux","(83) 98216-7013","Nunc Limited"),
-  ("Serena Frederick","nunc.ut@hotmail.org","Brazil","Santarém","(44) 97812-5876","Turpis Corporation"),
-  ("Owen Baker","ac.mattis@outlook.com","Brazil","Joinville","(32) 90518-0518","Sed Neque Sed Industries"),
-  ("Branden Adams","torquent.per.conubia@protonmail.edu","Brazil","São José","(78) 99238-7786","Sed Neque Corp."),
-  ("Aiko Barrett","amet.luctus@yahoo.ca","Brazil","Governador Valadares","(47) 92931-6835","Sed Incorporated"),
-  ("Rinah Mitchell","luctus.curabitur@google.net","Brazil","Petrolina","(14) 98685-1549","Ut Pellentesque Institute"),
-  ("Byron Ford","metus.sit.amet@protonmail.net","Brazil","Ponta Grossa","(83) 91140-4428","Amet Faucibus Ut LLP"),
-  ("Xantha Atkinson","risus.varius.orci@google.ca","Brazil","Osasco","(85) 98745-0143","Consectetuer Institute"),
-  ("Karly Flores","vestibulum.massa.rutrum@hotmail.couk","Brazil","Diadema","(31) 91849-1643","Pellentesque Habitant LLC"),
-  ("Giacomo Fowler","sit.amet@protonmail.net","Brazil","Itabuna","(79) 91990-2467","Erat Nonummy Ultricies Inc.");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Warren Guimaraes","eget.dictum.placerat@protonmail.net","Brazil","Rio Grande","(37) 96327-0357","Libero Lacus Varius Incorporated"),
+  ("Kay Rezende","sit.amet@yahoo.com.br","Brazil","Foz do Iguaçu","(52) 91591-8875","Fringilla Ornare LLP"),
+  ("Ariana dos Santos","tincidunt.neque.vitae@icloud.com.br","Brazil","Juazeiro","(83) 98936-2353","Libero PC"),
+  ("Ina Martins","auctor.non.feugiat@protonmail.org","Brazil","Belém","(35) 97855-0854","Purus Accumsan LLC"),
+  ("Isabelle do Nascimento","integer.tincidunt.aliquam@outlook.com","Brazil","Foz do Iguaçu","(52) 94627-1275","Odio Sagittis Semper Company"),
+  ("Vanna da Conceiçao","elit.pellentesque.a@icloud.edu","Brazil","Bragança","(55) 95374-6919","Vel Venenatis Vel LLC"),
+  ("Logan da Rocha","vulputate@yahoo.org","Brazil","Colombo","(61) 97695-7153","Phasellus In Felis Industries"),
+  ("Maile de Azevedo","orci@yahoo.com","Brazil","Piracicaba","(11) 95880-4488","At Nisi Associates"),
+  ("Riley Bueno","egestas.fusce@hotmail.com","Brazil","Caucaia","(34) 98112-3218","Phasellus Dolor Elit Limited"),
+  ("Abigail Andrade","dis@google.edu","Brazil","Fortaleza","(50) 95605-1154","Tellus Sem Mollis Corp.");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Blake Orr","tempor@outlook.edu","Brazil","Maranguape","(31) 98951-1377","Id Magna LLP"),
-  ("Katell Hahn","in.hendrerit@yahoo.ca","Brazil","Nova Iguaçu","(76) 98425-1255","Mauris Consulting"),
-  ("Aidan Cash","phasellus.elit@yahoo.org","Brazil","Anápolis","(66) 92299-6447","Non Justo Industries"),
-  ("Venus Manning","scelerisque.mollis@yahoo.net","Brazil","Açailândia","(46) 92227-2463","Mi Eleifend LLP"),
-  ("Benjamin Hobbs","lectus.sit.amet@yahoo.couk","Brazil","Cajazeiras","(70) 96462-5271","Duis A Mi LLP"),
-  ("Bevis Mcmillan","porttitor.interdum.sed@icloud.couk","Brazil","Maranguape","(78) 96036-6358","Quis LLP"),
-  ("Winter Wolf","magna.ut@icloud.edu","Brazil","Divinópolis","(88) 97370-0446","Tellus Suspendisse Sed Limited"),
-  ("Kirby Sweet","nulla.interdum@hotmail.net","Brazil","Itajaí","(84) 96867-2114","Pharetra Nibh Inc."),
-  ("Leigh Franklin","nulla.integer.vulputate@protonmail.com","Brazil","Blumenau","(62) 92152-8213","Lacus LLP"),
-  ("Joshua Riley","feugiat.sed@google.org","Brazil","Salvador","(57) 97093-4758","Lorem Luctus Industries");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Tyler do Carmo","tellus.suspendisse.sed@protonmail.edu","Brazil","Lauro de Freitas","(54) 97737-4212","Ut Molestie Company"),
+  ("Megan Barboza","cras@yahoo.com.br","Brazil","Sobral","(11) 94989-3288","In Corp."),
+  ("Ashely Antunes","congue@google.com.br","Brazil","Duque de Caxias","(80) 92126-3628","Tellus Non Magna Corporation"),
+  ("Alan Firmino","aliquam.iaculis@outlook.org","Brazil","João Pessoa","(68) 96346-5330","Montes Nascetur LLP"),
+  ("Quin Fernandes","elementum.purus.accumsan@outlook.edu","Brazil","Itapipoca","(72) 96332-2732","Et Nunc Quisque PC"),
+  ("Carly da Silva","aenean.euismod@google.com.br","Brazil","Maringá","(81) 99745-5576","Lorem Donec Inc."),
+  ("Marsden Das Neves","faucibus.orci@icloud.com.br","Brazil","Petrópolis","(51) 96856-3057","Neque Corp."),
+  ("Dawn Rocha","maecenas.iaculis@hotmail.com.br","Brazil","Mauá","(46) 98311-7258","Sed Diam Corp."),
+  ("Sean Moura","ac.mattis@icloud.com","Brazil","São José dos Pinhais","(87) 94187-3952","Fringilla Donec Associates"),
+  ("Rhonda Domingues","et.ultrices@icloud.com","Brazil","Timon","(61) 97041-4334","Urna Corporation");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Igor Dyer","nunc.ut@outlook.com","Brazil","Codó","(84) 98756-4126","Venenatis Vel LLP"),
-  ("Wang Baird","amet.orci@outlook.com","Brazil","Santa Luzia","(21) 98498-4094","Diam At Inc."),
-  ("Jayme Bryan","mauris.erat.eget@hotmail.edu","Brazil","Bayeux","(72) 92715-4631","Sagittis Corp."),
-  ("Curran Talley","ligula.nullam@icloud.org","Brazil","Itapipoca","(52) 95153-8668","Tristique Senectus Et Institute"),
-  ("Vernon Curtis","ipsum.dolor@google.org","Brazil","Ribeirão Preto","(74) 97828-6743","Tristique Senectus Et Inc."),
-  ("Jerry Terrell","lobortis.class@yahoo.couk","Brazil","Curitiba","(42) 96200-1936","Bibendum Sed Corp."),
-  ("Cally Banks","metus.vivamus@hotmail.couk","Brazil","Nova Iguaçu","(90) 96081-5133","Tristique Limited"),
-  ("Micah Monroe","nisl@icloud.edu","Brazil","Imperatriz","(34) 91906-7563","Auctor Nunc Foundation"),
-  ("Whitney Yang","sollicitudin.adipiscing@aol.edu","Brazil","Guarapuava","(99) 98411-2727","Ornare Fusce Corp."),
-  ("Yvette Soto","aenean@icloud.ca","Brazil","Nova Iguaçu","(36) 98715-7912","Nec Metus Incorporated");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Donovan de Carvalho","ac.libero@aol.org","Brazil","Salvador","(18) 93404-5154","Non Ante Ltd"),
+  ("Lareina Sántos","mauris.eu@outlook.com.br","Brazil","Ribeirão Preto","(27) 95171-8868","Urna Ut Ltd"),
+  ("Willow de Sousa","augue.id@yahoo.com","Brazil","Ribeirão das Neves","(73) 97242-8506","Odio Phasellus Company"),
+  ("Ishmael Martins","aliquam.tincidunt@hotmail.com.br","Brazil","Balsas","(54) 91699-1790","Elit Curabitur Sed Incorporated"),
+  ("Herman Monteiro","facilisis.facilisis.magna@icloud.net","Brazil","Santa Maria","(34) 93161-5132","Magna Limited"),
+  ("Solomon Soares","nulla.vulputate@icloud.com.br","Brazil","Santa Maria","(22) 92511-2155","Donec Elementum Consulting"),
+  ("Mariam Franco","est.mollis@yahoo.com.br","Brazil","Gravataí","(84) 91816-5513","Sed Eu Foundation"),
+  ("Damon Leal","justo.proin.non@outlook.com","Brazil","Mauá","(16) 96428-9381","Nulla Donec LLC"),
+  ("Ryder Diniz","eleifend.egestas.sed@icloud.com.br","Brazil","Caucaia","(37) 92750-8648","Netus Et Institute"),
+  ("Tate de Abreu","ante.dictum@hotmail.com.br","Brazil","Bragança","(22) 93541-4703","Luctus Et Ultrices Foundation");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Nasim Gross","fusce.aliquet@icloud.couk","Brazil","Cametá","(64) 97756-0528","Proin Mi Ltd"),
-  ("Maia Chapman","mollis@yahoo.org","Brazil","Ponta Grossa","(51) 92553-2819","Vestibulum Corp."),
-  ("Alma Stafford","mauris@aol.org","Brazil","Caruaru","(58) 98258-4635","Porttitor Scelerisque LLC"),
-  ("Chase Holland","amet.diam@hotmail.ca","Brazil","Colombo","(78) 92437-1930","Neque Venenatis Foundation"),
-  ("Owen Branch","elit.nulla@icloud.org","Brazil","Rio de Janeiro","(25) 96347-3573","Donec Industries"),
-  ("Darius Church","nullam.lobortis.quam@google.net","Brazil","Maranguape","(26) 98465-3177","Amet Associates"),
-  ("Caesar Massey","quisque@google.com","Brazil","Uberlândia","(71) 90324-9834","Curabitur Dictum Inc."),
-  ("Kuame Cline","ac.facilisis@hotmail.org","Brazil","São José","(63) 91825-5671","Ornare Facilisis Eget LLP"),
-  ("Stewart Gilmore","in.consectetuer@protonmail.edu","Brazil","Blumenau","(98) 91313-5188","Sit Amet Incorporated"),
-  ("Lamar Stevenson","bibendum.ullamcorper.duis@hotmail.edu","Brazil","Canoas","(21) 93999-3215","Lacus Corporation");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Trevor de Lourdes","pede@yahoo.com","Brazil","Imperatriz","(74) 99148-3012","Augue Porttitor Corporation"),
+  ("Beck Antunes","ac@yahoo.edu","Brazil","Rio Verde","(63) 93632-6322","Eu Institute"),
+  ("Cara de Morais","facilisis.lorem@hotmail.com.br","Brazil","Fortaleza","(41) 93484-8244","Tortor Dictum Eu Limited"),
+  ("Norman Chaves","nam@outlook.org","Brazil","Açailândia","(54) 97534-1566","Nulla In Associates"),
+  ("Shana Guedes","tellus.non@outlook.com.br","Brazil","Santa Maria","(74) 99435-8974","Lacus Pede Sagittis Associates"),
+  ("Justin Moraes","nec@hotmail.com.br","Brazil","Cajazeiras","(34) 96528-6304","Posuere Vulputate Lacus Consulting"),
+  ("Oleg Ramos","tincidunt.aliquam.arcu@outlook.com.br","Brazil","Governador Valadares","(48) 94286-1585","Nec Mollis Associates"),
+  ("Levi Bastos","curabitur.massa@hotmail.edu","Brazil","Jaboatão dos Guararapes","(61) 97723-1231","Ornare Corp."),
+  ("Steel Inacio","cursus.purus@aol.org","Brazil","Luziânia","(16) 90670-5288","Curae Incorporated"),
+  ("Willow Nascimento","nulla.aliquet@aol.com","Brazil","Guarulhos","(41) 90415-5055","Justo Limited");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Silas Brown","mattis.cras@icloud.org","Brazil","Belford Roxo","(86) 94616-8532","Cras Dictum Associates"),
-  ("Ina Richmond","gravida@hotmail.couk","Brazil","Petrópolis","(73) 97319-0577","Ultricies Corp."),
-  ("Kirestin Steele","ac.orci.ut@hotmail.couk","Brazil","Itapipoca","(39) 97783-3716","Donec Sollicitudin Incorporated"),
-  ("Lawrence Hebert","dolor.nonummy.ac@yahoo.edu","Brazil","Paranaguá","(52) 95509-4117","Mi Corp."),
-  ("Trevor Rowland","mollis.nec@protonmail.couk","Brazil","Chapecó","(47) 92233-7971","Aliquam Arcu Inc."),
-  ("Hall Griffith","nunc@google.ca","Brazil","Campinas","(53) 96975-0131","Adipiscing Elit Etiam LLP"),
-  ("Callie Roman","condimentum.donec@hotmail.org","Brazil","Bragança","(29) 92538-2517","Pede Cras LLC"),
-  ("Paula Osborne","integer.id@icloud.edu","Brazil","Luziânia","(87) 92234-0283","Laoreet Libero Limited"),
-  ("Hadley Cote","aliquam.ornare@google.couk","Brazil","Patos","(82) 91491-4561","Cras Pellentesque Associates"),
-  ("Yeo Rhodes","pellentesque@yahoo.org","Brazil","Bacabal","(67) 93772-0234","Blandit Industries");
-INSERT INTO `myTable` (`name`,`email`,`country`,`city`,`phone`,`company`)
+  ("Igor de Fatima","justo.faucibus@outlook.com.br","Brazil","Vitória da Conquista","(88) 97743-5537","Nullam Corp."),
+  ("Aphrodite Custodio","at@icloud.net","Brazil","Marabá","(75) 91235-7834","Scelerisque Mollis Limited"),
+  ("Alden de Freitas","mauris.id@hotmail.net","Brazil","Caucaia","(89) 96795-6738","Arcu Foundation"),
+  ("Jasper Mota","neque.vitae.semper@hotmail.net","Brazil","Castanhal","(85) 93361-2588","Augue Sed Inc."),
+  ("Ishmael Faria","mollis.phasellus.libero@yahoo.org","Brazil","Jaboatão dos Guararapes","(44) 97415-4384","Eleifend Egestas Incorporated"),
+  ("Frances Barbosa","sem.nulla@google.com","Brazil","Recife","(28) 95538-3265","Molestie LLC"),
+  ("Christen Franca","nulla@icloud.com","Brazil","Sobral","(84) 98812-5210","Eros Nec LLC"),
+  ("Echo de Matos","convallis.erat.eget@yahoo.net","Brazil","Juazeiro","(31) 95239-8156","Cras Eget LLP"),
+  ("Nash de Morais","auctor.vitae.aliquet@aol.org","Brazil","Camaçari","(66) 92382-1287","Lorem Industries"),
+  ("Hanna Barros","sed.nunc.est@protonmail.edu","Brazil","Fortaleza","(71) 96237-8739","Cursus Et Magna LLP");
+INSERT INTO `usuarios` (`name`,`email`,`country`,`city`,`phone`,`company`)
 VALUES
-  ("Bertha Holman","non.lorem@icloud.com","Brazil","Santa Inês","(42) 94514-9443","Maecenas Industries"),
-  ("Carol Lucas","vel.venenatis.vel@icloud.edu","Brazil","Castanhal","(35) 99242-7614","Odio Etiam Limited"),
-  ("Patience Solomon","pede.praesent.eu@google.org","Brazil","Curitiba","(79) 96165-0431","Velit Corporation"),
-  ("Nathaniel Carpenter","nibh.dolor@outlook.edu","Brazil","Maranguape","(35) 94545-8739","Ornare In Associates"),
-  ("Helen Marsh","interdum@google.couk","Brazil","João Pessoa","(77) 91001-5125","Massa Non LLC"),
-  ("Bell Dyer","commodo.auctor.velit@hotmail.com","Brazil","Rio Verde","(90) 97685-1874","Tortor Associates"),
-  ("Hamish Harding","consectetuer.cursus@icloud.couk","Brazil","Nova Iguaçu","(47) 99117-5930","Ullamcorper Duis LLC"),
-  ("Cooper Workman","et.risus@hotmail.net","Brazil","João Pessoa","(25) 96932-3171","Elementum Purus Inc."),
-  ("Xaviera Bruce","faucibus.id@hotmail.org","Brazil","Codó","(95) 91303-6062","Urna Incorporated"),
-  ("Marvin Aguirre","natoque.penatibus@protonmail.net","Brazil","Florianópolis","(36) 98317-4149","Tincidunt Nunc Corporation");
+  ("Joelle Gomes","mattis.ornare@hotmail.org","Brazil","Crato","(98) 91675-9189","Fringilla Cursus Purus Industries"),
+  ("Thaddeus Henrique","posuere.cubilia.curae@icloud.com.br","Brazil","Cascavel","(26) 90475-1241","Ut Odio Industries"),
+  ("Amery Matos","vel@yahoo.net","Brazil","Osasco","(56) 95406-6373","Amet Associates"),
+  ("Nash Figueiredo","sit@hotmail.net","Brazil","Divinópolis","(75) 90518-2435","Fermentum Corporation"),
+  ("Jin Abreu","dis.parturient@google.com","Brazil","Porto Alegre","(48) 98624-8342","Egestas Blandit LLP"),
+  ("Cadman de Moraes","fusce@outlook.com.br","Brazil","Chapadinha","(87) 95731-6227","Elit Ltd"),
+  ("Olympia dos Santos","orci.ut@yahoo.org","Brazil","Caxias do Sul","(46) 91519-0855","Rhoncus Id Mollis Industries"),
+  ("Kai Antunes","erat.nonummy.ultricies@yahoo.net","Brazil","Gravataí","(84) 92656-2669","Cubilia Incorporated"),
+  ("Lane Martins","mi.aliquam@icloud.edu","Brazil","Itajaí","(58) 94896-9266","Odio Ltd"),
+  ("Lacey Messias","nisi@outlook.com.br","Brazil","Cametá","(10) 98153-5711","Lectus Pede Inc.");

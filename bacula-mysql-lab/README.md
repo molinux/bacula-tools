@@ -20,6 +20,7 @@ Bacula MySQL Lab
 ```bash
 apt-get update
 apt-get install mysql-server
+mysql -u root -p < random-data.sql
 ```
 
 ## Funcionalities
