@@ -20,6 +20,7 @@ Bacula MySQL Lab
 ```bash
 apt-get update
 apt-get install mysql-server
+wget https://raw.githubusercontent.com/molinux/bacula-tools/master/bacula-mysql-lab/random-data.sql
 mysql -u root -p < random-data.sql
 ```
 
