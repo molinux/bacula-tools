@@ -26,15 +26,19 @@ systemctl restart postgresql
 su - postgres
 psql -U postgres
 
+# List databases
+\l
 CREATE DATABASE cadastro;
 \c cadastro;
 \q
 
-wget https://raw.githubusercontent.com/molinux/bacula-tools/master/bacula-postgresql-lab/random-data.sql
+wget https://raw.githubusercontent.com/molinux/bacula-tools/master/bacula-postgresql-lab/pgsql-random-data.sql
 psql -U postgres -d cadastro < /tmp/pgsql-random-data.sql
 
 
 psql -U postgres -d cadastro
+# List Tables
+\d 
 SELECT * FROM assinantes;
 \q
 ```
