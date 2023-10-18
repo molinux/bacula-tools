@@ -1,0 +1,25 @@
+#!/bin/bash -
+#
+# Script to install Bacularis on CentOS by packages
+# Author        : Marcus Molinero aka Molinux
+# Reviewer      : Marcus Molinero aka Molinux
+# Email         : marcus.molinero@bacula.com.br
+# version       : 0.0.1 - 18 Oct 2023
+
+version="0.0.1 - 18 Oct 2023"
+
+#============================================================================
+
+# Release 0.0.1 - by Molinux
+# This is the first release !
+# Tested on Ubuntu-22.04
+
+#============================================================================
+
+echo
+echo "Esse script ainda está em desenvolvimento :-("
+echo "Mas em breve estará disponível ! ;-)"
+echo
+echo "Script by Marcus Molinero aka Molinux"
+echo "Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
+echo
