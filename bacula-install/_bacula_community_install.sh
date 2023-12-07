@@ -198,6 +198,43 @@ function install_with_postgresql()
     echo
 }
 
+# Install Only Storage with PostgreSQL
+function install_only_storage()
+{
+    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+        apt-get update
+        apt-get install -y postgresql postgresql-client
+        apt-get install -y bacula-postgresql
+
+    elif [ "$OS" == "centos" ]; then
+        yum install -y postgresql-server
+        yum install -y bacula-postgresql --exclude=bacula-mysql
+        postgresql-setup initdb
+    fi
+
+    systemctl enable postgresql
+    systemctl start postgresql
+    su - postgres -c "/opt/bacula/scripts/create_postgresql_database"
+    su - postgres -c "/opt/bacula/scripts/make_postgresql_tables"
+    su - postgres -c "/opt/bacula/scripts/grant_postgresql_privileges"
+
+    systemctl enable bacula-fd.service
+    systemctl enable bacula-sd.service
+    systemctl enable bacula-dir.service
+
+    systemctl start bacula-fd.service
+    systemctl start bacula-sd.service
+    systemctl start bacula-dir.service
+
+    for i in $(ls /opt/bacula/bin); do
+        ln -s /opt/bacula/bin/$i /usr/sbin/$i;
+    done
+    sed '/[Aa]ddress/s/=\s.*/= localhost/g' -i  /opt/bacula/etc/bconsole.conf
+    echo
+    echo "Bacula with PostgreSQL installed with success!"
+    echo
+}
+
 # Install PostgreSQL
 function install_only_client()
 {
@@ -241,8 +278,9 @@ function menu()
         echo "   1) Install Bacula with PostgreSQL"
         echo "   2) Install Bacula with MySQL"
         echo "   3) Install Bacula Client only"
-        echo "   4) Exit"
-        read -p " Select an option [1-3]: " option
+        echo "   4) Install Bacula Storage only (Just for PostgreSQL)"
+        echo "   5) Exit"
+        read -p " Select an option [1-5]: " option
         echo
         case $option in
             1) # Install Bacula with PostgreSQL
@@ -257,7 +295,11 @@ function menu()
                install_only_client
                read -p "Press [enter] key to continue..." readenterkey
                ;;
-            4) echo
+            4) # Install only Bacula Storage
+               install_only_storage
+               read -p "Press [enter] key to continue..." readenterkey
+               ;;
+            5) echo
                exit
                ;;
         esac
