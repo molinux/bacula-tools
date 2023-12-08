@@ -8,10 +8,8 @@
 # version="1.0.7 - 19 May 2020"
 # version="1.0.8 - 04 Jul 2022"
 # version="1.0.9 - 28 Mar 2023"
-version="1.1.0 - 12 Apr 2023"
-
-# BUG: Fazer o yum update antes de informar a versão do Bacula
-
+# version="1.1.0 - 12 Apr 2023"
+version="1.2.0 - 07 Dec 2023"
 
 # Release 1.0.8 - by Molinux
 # Oracle support in this release !
@@ -22,6 +20,9 @@ version="1.1.0 - 12 Apr 2023"
 
 # Release 1.1.0 - by Molinux
 # Now it's possible to install only bacula client
+
+# Release 1.2.0 - by Molinux
+# Now it's possible to install only bacula storage
 
 
 
@@ -198,12 +199,14 @@ function install_with_postgresql()
     echo
 }
 
+# TODO: Testar em todas as distros a instalação do Storage Only
+# TODO: Testar configurando em um Director
 # Install Only Storage with PostgreSQL
 function install_only_storage()
 {
     if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
         apt-get update
-        apt-get install -y postgresql postgresql-client
+        apt-get install -y postgresql #postgresql-client
         apt-get install -y bacula-postgresql
 
     elif [ "$OS" == "centos" ]; then
@@ -212,26 +215,31 @@ function install_only_storage()
         postgresql-setup initdb
     fi
 
-    systemctl enable postgresql
-    systemctl start postgresql
-    su - postgres -c "/opt/bacula/scripts/create_postgresql_database"
-    su - postgres -c "/opt/bacula/scripts/make_postgresql_tables"
-    su - postgres -c "/opt/bacula/scripts/grant_postgresql_privileges"
+    systemctl disable postgresql
+    systemctl stop postgresql
+    #su - postgres -c "/opt/bacula/scripts/create_postgresql_database"
+    #su - postgres -c "/opt/bacula/scripts/make_postgresql_tables"
+    #su - postgres -c "/opt/bacula/scripts/grant_postgresql_privileges"
 
-    systemctl enable bacula-fd.service
+    systemctl disable bacula-fd.service
     systemctl enable bacula-sd.service
-    systemctl enable bacula-dir.service
+    systemctl disable bacula-dir.service
 
-    systemctl start bacula-fd.service
+    systemctl stop bacula-fd.service
     systemctl start bacula-sd.service
-    systemctl start bacula-dir.service
+    systemctl stop bacula-dir.service
 
-    for i in $(ls /opt/bacula/bin); do
-        ln -s /opt/bacula/bin/$i /usr/sbin/$i;
-    done
-    sed '/[Aa]ddress/s/=\s.*/= localhost/g' -i  /opt/bacula/etc/bconsole.conf
+    #for i in $(ls /opt/bacula/bin); do
+    ln -s /opt/bacula/bin/bacula-sd /usr/sbin/bacula-sd;
+    # Clean the house !
+    CONFDIR=/opt/bacula/etc
+    rm $CONFDIR/bacula-{dir,fd}.conf
+    rm $CONFDIR/bconsole.conf
+    apt-get remove postgresql
+    #done
+    # sed '/[Aa]ddress/s/=\s.*/= localhost/g' -i  /opt/bacula/etc/bconsole.conf
     echo
-    echo "Bacula with PostgreSQL installed with success!"
+    echo "Bacula Storage Daemon installed with success!"
     echo
 }
 
