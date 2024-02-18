@@ -9,7 +9,8 @@
 # version="1.0.8 - 04 Jul 2022"
 # version="1.0.9 - 28 Mar 2023"
 # version="1.1.0 - 12 Apr 2023"
-version="1.2.0 - 07 Dec 2023"
+# version="1.2.0 - 07 Dec 2023"
+version="1.2.1 - 18 Feb 2024"
 
 # Release 1.0.8 - by Molinux
 # Oracle support in this release !
@@ -23,6 +24,10 @@ version="1.2.0 - 07 Dec 2023"
 
 # Release 1.2.0 - by Molinux
 # Now it's possible to install only bacula storage
+
+# Release 1.2.1 - by Molinux
+# Hi Folks ! I've been working at my new lab and now I'll try to check and approve as many distros and versions as I can
+# You can find approved Linux distributions and versions at: https://abre.ai/bacula-molinux-approved"
 
 
 
