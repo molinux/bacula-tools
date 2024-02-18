@@ -278,7 +278,9 @@ function menu()
         echo " Author: Based on Wanderlei Huttel version"
         echo " Author: Marcus Molinux Molinero"
         echo " Email:  marcus.molinero@bacula.com.br"
-        echo " OS Supported: Debian | Ubuntu | CentOS"
+        echo " OS Supported: Debian | Ubuntu | CentOS | Oracle Linux"
+        echo " You can find all approved versions at: https://abre.ai/bacula-molinux-approved"
+        echo " What about support me ? https://www.buymeacoffee.com/molinux"
         echo " Version: ${version}"
         echo " =================================================="
         echo
@@ -286,7 +288,7 @@ function menu()
         echo "   1) Install Bacula with PostgreSQL"
         echo "   2) Install Bacula with MySQL"
         echo "   3) Install Bacula Client only"
-        echo "   4) Install Bacula Storage only (Just for PostgreSQL)"
+        echo "   4) Install Bacula Storage only (Only PostgreSQL)"
         echo "   5) Exit"
         read -p " Select an option [1-5]: " option
         echo
