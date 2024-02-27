@@ -1,0 +1,69 @@
+#!/bin/bash -
+#
+# Script to install Bacularis on Ubuntu by packages
+# Author        : Marcus Molinero aka Molinux
+# Reviewer      : Marcus Molinero aka Molinux
+# Email         : marcus.molinero@bacula.com.br
+# version       : 0.0.1 - 27 Feb 2024
+
+version="0.0.1 - 27 Feb 2024"
+
+#============================================================================
+
+# Release 0.0.1 - by Molinux
+# This is the first release !
+# Tested on Debian 11 (Bullseye)
+
+#============================================================================
+
+wget -qO- https://pkgs.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
+
+echo "
+deb [arch=amd64 signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu bullseye main
+deb-src [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu bullseye main
+" > /etc/apt/sources.list.d/bacularis.list
+
+apt-get update && apt-get install bacularis bacularis-lighttpd
+
+systemctl restart bacularis-lighttpd
+
+#apt-get update && apt-get install php-bcmath php*-mbstring baculum-api baculum-api-apache2 baculum-common bacula-console baculum-web baculum-web-apache2
+
+echo "Defaults:apache "'!'"requiretty
+www-data ALL=NOPASSWD: /usr/sbin/bconsole
+www-data ALL=NOPASSWD: /usr/sbin/bdirjson
+www-data ALL=NOPASSWD: /usr/sbin/bsdjson
+www-data ALL=NOPASSWD: /usr/sbin/bfdjson
+www-data ALL=NOPASSWD: /usr/sbin/bbconsjson
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl start bacula-dir
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl stop bacula-dir
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl restart bacula-dir
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl start bacula-sd
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl stop bacula-sd
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl restart bacula-sd
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl start bacula-fd
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl stop bacula-fd
+www-data ALL=(root) NOPASSWD: /usr/bin/systemctl restart bacula-fd
+www-data ALL=(root) NOPASSWD: /opt/bacula/bin/mtx-changer
+" > /etc/sudoers.d/bacularis
+
+usermod -aG bacula www-data
+chown -R www-data:bacula /opt/bacula/working /opt/bacula/etc
+chmod -R g+rwx /opt/bacula/working /opt/bacula/etc
+#a2enmod rewrite
+#a2ensite baculum-web baculum-api
+#service apache2 restart
+
+sed -i 's/ident/trust/g; s/peer/trust/g; s/md5/trust/g' /var/lib/pgsql/data/pg_hba.conf
+sed -i 's/ident/trust/g; s/peer/trust/g; s/md5/trust/g' /etc/postgresql/*/main/pg_hba.conf
+service postgresql restart
+systemctl restart postgresql
+
+server_ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+
+echo
+echo "Acesse e configure pelo navegador de Internet o Bacularis http://$server_ip:9097/"
+echo
+echo "Script by Marcus Molinero aka Molinux"
+echo "Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
+echo
