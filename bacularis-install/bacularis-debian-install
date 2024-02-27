@@ -1,6 +1,6 @@
 #!/bin/bash -
 #
-# Script to install Bacularis on Ubuntu by packages
+# Script to install Bacularis on Debian by packages
 # Author        : Marcus Molinero aka Molinux
 # Reviewer      : Marcus Molinero aka Molinux
 # Email         : marcus.molinero@bacula.com.br
