@@ -18,9 +18,15 @@ version="0.0.1 - 18 Oct 2023"
 
 wget -qO- https://pkgs.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
 
+declare -A LINUX_DISTRO=([distro]=$(egrep 'ID=(ubuntu|debian)' /etc/os-release | cut -d= -f2) [codename]=$(egrep 'VERSION_CODENAME' /etc/os-release | cut -d= -f2))
+
+# echo "
+# deb [arch=amd64 signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu jammy main
+# deb-src [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu jammy main
+# " > /etc/apt/sources.list.d/bacularis.list
 echo "
-deb [arch=amd64 signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu jammy main
-deb-src [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu jammy main
+deb [arch=amd64 signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/${LINUX_DISTRO[distro]} ${LINUX_DISTRO[codename]} main
+deb-src [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/${LINUX_DISTRO[distro]} ${LINUX_DISTRO[codename]} main
 " > /etc/apt/sources.list.d/bacularis.list
 
 apt-get update && apt-get install bacularis bacularis-lighttpd
