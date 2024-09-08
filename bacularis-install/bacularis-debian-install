@@ -4,9 +4,9 @@
 # Author        : Marcus Molinero aka Molinux
 # Reviewer      : Marcus Molinero aka Molinux
 # Email         : marcus.molinero@bacula.com.br
-# version       : 0.0.1 - 27 Feb 2024
+# version       : 0.0.2 - 07 Nov 2024
 
-version="0.0.1 - 27 Feb 2024"
+version="0.0.2 - 07 Nov 2024"
 
 #============================================================================
 
@@ -14,15 +14,29 @@ version="0.0.1 - 27 Feb 2024"
 # This is the first release !
 # Tested on Debian 11 (Bullseye)
 
+# Release 0.0.2 - by Molinux
+# Now its possibile to add repository of any ubuntu/debian version
+# Tested on Debian 11 (Bullseye)
+# Tested on Debian 12 (Bullseye)
+# Tested on Ubuntu 22.04 (Jammy)
+
 #============================================================================
 
 wget -qO- https://pkgs.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
 
-echo "
-deb [arch=amd64 signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu bullseye main
-deb-src [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu bullseye main
-" > /etc/apt/sources.list.d/bacularis.list
+wget -qO- https://pkgs.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
 
+declare -A LINUX_DISTRO=([distro]=$(egrep 'ID=(ubuntu|debian)' /etc/os-release | cut -d= -f2) [codename]=$(egrep 'VERSION_CODENAME' /etc/os-release | cut -d= -f2))
+
+# echo "
+# deb [arch=amd64 signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu jammy main
+# deb-src [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/ubuntu jammy main
+# " > /etc/apt/sources.list.d/bacularis.list
+
+echo "
+deb [arch=amd64 signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/${LINUX_DISTRO[distro]} ${LINUX_DISTRO[codename]} main
+deb-src [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://pkgs.bacularis.app/stable/${LINUX_DISTRO[distro]} ${LINUX_DISTRO[codename]} main
+" > /etc/apt/sources.list.d/bacularis.list
 apt-get update && apt-get install bacularis bacularis-lighttpd
 
 systemctl restart bacularis-lighttpd
