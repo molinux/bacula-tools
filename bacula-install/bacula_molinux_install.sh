@@ -46,6 +46,8 @@ function banner()
    echo
    echo -e " Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
    echo
+   echo
+   echo
 
 }
 
@@ -482,9 +484,9 @@ else
 fi
 
 if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
-    apt-get install -y zip wget apt-transport-https bzip2 curl
+    apt-get install -y zip wget apt-transport-https bzip2 curl figlet
 elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
-    yum install -y zip wget apt-transport-https bzip2 curl
+    yum install -y zip wget apt-transport-https bzip2 curl figlet
 fi
 
 envs
