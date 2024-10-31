@@ -29,6 +29,10 @@ version="1.2.1 - 18 Feb 2024"
 # Hi Folks ! I've been working at my new lab and now I'll try to check and approve as many distros and versions as I can
 # You can find approved Linux distributions and versions at: https://abre.ai/bacula-molinux-approved"
 
+# Release 2.0.0 - by Molinux
+# New Relase ! This time I spend a lot of time refactoring this code and now we have
+# Bacula and Bacularis installation consolidated
+
 
 #===============================================================================
 function tools()
@@ -41,10 +45,12 @@ function banner()
    figlet -cf slant Bacula Community Molinux Install
    echo
    echo
-   echo -e "Developed by Marcus Molinero aka ${RED}Molinux${EC}"
-   echo "Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
+   echo -e "         Developed by Marcus Molinero aka ${RED}Molinux${EC}"
+   echo "         Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
    echo
-   echo -e " Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
+   echo -e "-------------------------------------------------------------"
+   echo -e "      Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
+   echo -e "-------------------------------------------------------------"
    echo
    echo
    echo
@@ -105,24 +111,24 @@ function download_bacula_key()
 # Read bacularis key
 function read_bacularis_key()
 {
-#    #python_deps
-#    clear
-#    echo " --------------------------------------------------"
-#    echo " Inform your Bacularis Key"
-#    echo " This key is obtained with a registration in Bacularis.app"
-#    echo " https://users.bacularis.com/"
-#    read -p " Please, fill with your Bacularis User: " bacularis_user
-#    read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
-#    echo " "
-#   # echo -e User: $bacularis_user
-#   # echo -e Password: $bacularis_pass
-#    wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
-#    echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
-#    echo "# Bacularis - Debian 11 Bullseye package repository
-#    deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://packages.bacularis.app/stable/debian bullseye main" > /etc/apt/sources.list.d/bacularis-app.list
-#    apt update
-#    apt install bacularis bacularis-lighttpd
-#    systemctl restart bacularis-lighttpd
+    #python_deps
+    clear
+    echo " --------------------------------------------------"
+    echo " Inform your Bacularis Key"
+    echo " This key is obtained with a registration in Bacularis.app"
+    echo " https://users.bacularis.com/"
+    read -p " Please, fill with your Bacularis User: " bacularis_user
+    read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
+    echo
+   # echo -e User: $bacularis_user
+   # echo -e Password: $bacularis_pass
+    wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
+    echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
+    echo "# Bacularis - Debian 11 Bullseye package repository
+    deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://packages.bacularis.app/stable/debian bullseye main" > /etc/apt/sources.list.d/bacularis-app.list
+    apt update
+    apt install bacularis bacularis-lighttpd
+    systemctl restart bacularis-lighttpd
     clear
     echo " --------------------------------------------------"
     echo -e " Bacularis is ${GREEN}Installed !${EC}"
