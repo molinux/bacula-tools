@@ -522,7 +522,15 @@ fi
 if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
     apt-get install -y zip wget apt-transport-https bzip2 curl figlet gpg
 elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
-    yum install -y zip wget apt-transport-https bzip2 curl figlet
+    if [ "$codename" -ge 8 ]; then
+        dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-$codename.noarch.rpm
+        dnf install -y zip wget apt-transport-https bzip2 curl figlet
+    elif [ "$codename" -eq 7 ]; then
+        sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"
+        yum update
+        yum install -y zip wget apt-transport-https bzip2 curl figlet
+    fi
 fi
 
 envs
