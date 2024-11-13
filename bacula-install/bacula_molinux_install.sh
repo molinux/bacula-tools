@@ -63,9 +63,13 @@ function banner()
 function envs()
 {
 RED="\e[31m"
+BOLDRED="\e[1m${RED}"
 GREEN="\e[32m"
+BOLDGREEN="\e[1m${GREEN}"
 ORACLE="\033[38;5;89m"
 ORANGE="\033[38;5;208m"
+BLUE="\e[34m"
+BOLDBLUE="\e[1m${BLUE}"
 EC="\e[0m"
 }
 
@@ -434,10 +438,10 @@ function menu()
         echo " Based on Wanderlei Huttel version"
         echo " Author: Marcus Molinux Molinero"
         echo " Email:  marcus.molinero@bacula.com.br"
-        echo -e " OS Supported: ${RED}Debian${EC} | ${ORANGE}Ubuntu${EC} | ${GREEN}CentOS${EC} | ${ORACLE}Oracle Linux${EC}"
+        echo -e " OS Supported: ${RED}Debian${EC} | ${ORANGE}Ubuntu${EC} | ${BOLDRED}RedHat${EC} | ${BOLDBLUE}Alma Linux${EC} | ${BOLDGREEN}Rocky Linux${EC} | ${ORACLE}Oracle Linux${EC}"
         echo " You can find all approved versions at: https://abre.ai/bacula-molinux-approved"
         echo " What about support me ? https://www.buymeacoffee.com/molinux"
-        echo " Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
+        echo -e " Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
         echo " Version: ${version}"
         echo " =================================================="
         echo
