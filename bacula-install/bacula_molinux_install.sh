@@ -4,7 +4,7 @@
 # Author:  Wanderlei Huttel
 # Email:   wanderlei@bacula.com.br
 # Reviewer: Marcus "Molinux" Molinero
-# Email:    molinuxbr@gmail.com
+# Email:    marcus.molinero@bacula.com.br
 # version="1.0.7 - 19 May 2020"
 # version="1.0.8 - 04 Jul 2022"
 # version="1.0.9 - 28 Mar 2023"
@@ -95,11 +95,11 @@ function read_bacula_key()
 function download_bacula_key()
 {
     wget -c https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc -O /tmp/Bacula-4096-Distribution-Verification-key.asc
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         # apt-key add /tmp/Bacula-4096-Distribution-Verification-key.asc
          wget -qO- https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc > /etc/apt/trusted.gpg.d/Bacula-4096-Distribution-Verification-key.asc
         # wget -qO- https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc | gpg --dearmor > /usr/share/keyrings/Bacula-4096-Distribution-Verification-key.gpg
-    elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
+    elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ]; then
         rpm --import /tmp/Bacula-4096-Distribution-Verification-key.asc
     else
         echo "Is not possible to install the Bacula Key"
@@ -145,10 +145,10 @@ function read_bacularis_key()
 # Download Bacularis Key
 function download_bacularis_key()
 {
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
         echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
-    elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
+    elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ]; then
         rpm --import /tmp/Bacula-4096-Distribution-Verification-key.asc
     else
         echo "Is not possible to install the Bacula Key"
@@ -175,8 +175,8 @@ function create_bacula_repository()
     done
     read -p " Type your the Bacula Version: " bacula_version
 
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
-        if [ "$bacula_version" > "13.0.0" ]; then
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
+        if [[ "$bacula_version" > "13.0.0" ]]; then
             url="http://www.bacula.org/packages/${bacula_key}/debs/${bacula_version}/"
         else
             url="http://www.bacula.org/packages/${bacula_key}/debs/${bacula_version}/${codename}/amd64"
@@ -184,7 +184,7 @@ function create_bacula_repository()
         echo "# Bacula Community
         deb ${url} ${codename} main" > /etc/apt/sources.list.d/bacula-community.list
 
-    elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
+    elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ]; then
         if [ "$bacula_version" == "11.0.6" ]; then
           url="https://www.bacula.org/packages/${bacula_key}/rpms/${bacula_version}/rhel${codename}-64/"
         else
@@ -200,7 +200,7 @@ gpgcheck=0" > /etc/yum.repos.d/bacula-community.repo
         echo "Is not possible to install the Bacula Key"
     fi
 
-    if wget --spider ${url} 2>/dev/null; then
+    if wget --spider "${url}" 2>/dev/null; then
         break
     else
         echo " Unfortunately this version (${bacula_version}) still not available for this OS."
@@ -218,7 +218,7 @@ gpgcheck=0" > /etc/yum.repos.d/bacula-community.repo
 function install_with_mysql()
 {
     wget -c https://repo.mysql.com/RPM-GPG-KEY-mysql -O /tmp/RPM-GPG-KEY-mysql --no-check-certificate
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         apt-key add /tmp/RPM-GPG-KEY-mysql
         echo "deb http://repo.mysql.com/apt/debian/ ${codename} mysql-apt-config
 deb http://repo.mysql.com/apt/debian/ ${codename} mysql-5.7
@@ -231,7 +231,7 @@ deb-src http://repo.mysql.com/apt/debian/ ${codename} mysql-5.7" > /etc/apt/sour
         systemctl enable mysql
         systemctl start mysql
 
-    elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
+    elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ]; then
         rpm --import /tmp/RPM-GPG-KEY-mysql
         wget -c http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm -O /tmp/mysql57-community-release-el7-9.noarch.rpm
         rpm -ivh /tmp/mysql57-community-release-el7-9.noarch.rpm
@@ -254,8 +254,8 @@ deb-src http://repo.mysql.com/apt/debian/ ${codename} mysql-5.7" > /etc/apt/sour
     systemctl start bacula-sd.service
     systemctl start bacula-dir.service
 
-    for i in $(ls /opt/bacula/bin); do
-        ln -s /opt/bacula/bin/$i /usr/sbin/$i;
+    for i in $(/opt/bacula/bin); do
+        ln -s /opt/bacula/bin/"$i" /usr/sbin/"$i";
     done
     sed '/[Aa]ddress/s/=\s.*/= localhost/g' -i  /opt/bacula/etc/bconsole.conf
     echo
@@ -267,7 +267,7 @@ deb-src http://repo.mysql.com/apt/debian/ ${codename} mysql-5.7" > /etc/apt/sour
 # Install PostgreSQL
 function install_with_postgresql()
 {
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         apt-get update
         apt-get install -y postgresql postgresql-client
         apt-get install -y bacula-postgresql
@@ -292,8 +292,8 @@ function install_with_postgresql()
     systemctl start bacula-sd.service
     systemctl start bacula-dir.service
 
-    for i in $(ls /opt/bacula/bin); do
-        ln -s /opt/bacula/bin/$i /usr/sbin/$i;
+    for i in $(/opt/bacula/bin); do
+        ln -s /opt/bacula/bin/"$i" /usr/sbin/"$i";
     done
     sed '/[Aa]ddress/s/=\s.*/= localhost/g' -i  /opt/bacula/etc/bconsole.conf
     echo
@@ -307,7 +307,7 @@ function install_with_postgresql()
 # Install Only Storage with PostgreSQL
 function install_only_storage()
 {
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         apt-get update
         apt-get install -y postgresql #postgresql-client
         apt-get install -y bacula-postgresql
@@ -362,7 +362,7 @@ function install_only_client()
 
     systemctl start bacula-fd.service
 
-    for i in $(ls /opt/bacula/bin); do
+    for i in $(/opt/bacula/bin); do
         ln -s /opt/bacula/bin/$i /usr/sbin/$i;
     done
     echo
@@ -375,7 +375,7 @@ function install_only_client()
 # Install Bacularis
 function install_bacularis()
 {
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         echo "# Bacularis - Debian 12 Bookworm package repository > /etc/apt/sources.list.d/bacularis-app.list"
         echo "deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] \
         https://packages.bacularis.app/stable/debian bookworm main" \
@@ -500,8 +500,8 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 if [[ -e /etc/debian_version ]]; then
-    OS=$(cat /etc/os-release  | grep -E "^ID=" | sed 's/.*=//g')
-    codename=$(cat /etc/os-release | grep "VERSION_CODENAME" | sed 's/.*=//g')
+    OS=$(grep -E "^ID=" < /etc/os-release | sed 's/.*=//g')
+    codename=$(grep "VERSION_CODENAME" < /etc/os-release | sed 's/.*=//g')
 elif [[ -e /etc/centos-release || -e /etc/redhat-release || -e /etc/oracle-release ]]; then
     setenforce 0
     sudo sed -i "s/enforcing/disabled/g" /etc/selinux/config
@@ -509,23 +509,21 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release || -e /etc/oracle-relea
     firewall-cmd --permanent --zone=public --add-port=9101-9103/tcp
     systemctl restart firewalld
     OS=centos
-    codename=$(cat /etc/os-release | grep "VERSION_ID" | sed 's/[^0-9.]//g' | cut -d . -f1)
+    codename=$(grep "VERSION_ID" < /etc/os-release | sed 's/[^0-9.]//g' | cut -d . -f1)
 else
     echo "Looks like you aren't running this installer on Debian, Ubuntu or CentOS"
     exit
 fi
 
-if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
     apt-get install -y zip wget apt-transport-https bzip2 curl figlet gpg
-elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
+elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ]; then
     yum install -y zip wget apt-transport-https bzip2 curl figlet
 fi
 
 envs
 download_bacula_key
 read_bacula_key
-#download_bacularis_key
-#read_bacularis_key
 create_bacula_repository
 menu
 banner
