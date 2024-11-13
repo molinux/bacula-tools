@@ -96,7 +96,8 @@ function download_bacula_key()
 {
     wget -c https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc -O /tmp/Bacula-4096-Distribution-Verification-key.asc
     if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
-        apt-key add /tmp/Bacula-4096-Distribution-Verification-key.asc
+        # apt-key add /tmp/Bacula-4096-Distribution-Verification-key.asc
+        wget -qO- https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc | gpg --dearmor > /usr/share/keyrings/Bacula-4096-Distribution-Verification-key.gpg
     elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
         rpm --import /tmp/Bacula-4096-Distribution-Verification-key.asc
     else
@@ -144,7 +145,7 @@ function read_bacularis_key()
 
 
 #===============================================================================
-# Download Bacula Key
+# Download Bacularis Key
 function download_bacularis_key()
 {
     if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
