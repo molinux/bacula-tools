@@ -392,10 +392,10 @@ function install_only_client()
 function install_bacularis()
 {
     if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
-        echo "# Bacularis - Debian 12 Bookworm package repository \
-        deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] \
+        echo "# Bacularis - Debian 12 Bookworm package repository > /etc/apt/sources.list.d/bacularis-app.list"
+        echo "deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] \
         https://packages.bacularis.app/stable/debian bookworm main" \
-        > /etc/apt/sources.list.d/bacularis-app.list
+        >> /etc/apt/sources.list.d/bacularis-app.list
         apt-get update
         apt-get install -y bacularis-lighttpd
 
