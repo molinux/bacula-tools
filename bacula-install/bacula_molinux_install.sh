@@ -478,7 +478,7 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 if [[ -e /etc/debian_version ]]; then
-    OS=$(cat /etc/os-release  | egrep "^ID=" | sed 's/.*=//g')
+    OS=$(cat /etc/os-release  | grep -E "^ID=" | sed 's/.*=//g')
     codename=$(cat /etc/os-release | grep "VERSION_CODENAME" | sed 's/.*=//g')
 elif [[ -e /etc/centos-release || -e /etc/redhat-release || -e /etc/oracle-release ]]; then
     setenforce 0
@@ -494,7 +494,7 @@ else
 fi
 
 if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
-    apt-get install -y zip wget apt-transport-https bzip2 curl figlet
+    apt-get install -y zip wget apt-transport-https bzip2 curl figlet gpg
 elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
     yum install -y zip wget apt-transport-https bzip2 curl figlet
 fi
