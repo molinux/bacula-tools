@@ -135,10 +135,20 @@ function read_bacularis_key()
     clear
     echo " --------------------------------------------------"
     echo -e " Bacularis is ${GREEN}Installed !${EC}"
-    echo " This key is obtained with a registration in Bacularis.app"
-    echo " https://users.bacularis.com/"
+    echo 
+    echo -e "         Developed by Marcus Molinero aka ${RED}Molinux${EC}"
+    echo "         Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
+    echo
+    echo -e "-------------------------------------------------------------"
+    echo -e "      Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
+    echo -e "-------------------------------------------------------------"
+    echo
     echo " --------------------------------------------------"
-    pause
+    echo
+    echo
+    read -n 1 -s -r -p "Press any key to continue..."
+    echo
+    echo
     ###read -s -p " Please, fill with your Bacularis Key: " bacularis_key
     ##python3 -c 'import maskpass; import os; pwd = maskpass.askpass(prompt="Password: ", mask="*"); os.system(f"export VAR1={pwd}")'
     ###python3 -c "import os; os.system(f'export bacularis_key="{pwd}"')"
