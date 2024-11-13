@@ -130,25 +130,9 @@ function read_bacularis_key()
     echo "# Bacularis - Debian 11 Bullseye package repository" > /etc/apt/sources.list.d/bacularis-app.list
     echo "deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://packages.bacularis.app/stable/debian bullseye main" >> /etc/apt/sources.list.d/bacularis-app.list
     apt update
-    apt install bacularis bacularis-lighttpd
-    systemctl restart bacularis-lighttpd
-    clear
-    echo " --------------------------------------------------"
-    echo -e " Bacularis is ${GREEN}Installed !${EC}"
-    echo 
-    echo -e "         Developed by Marcus Molinero aka ${RED}Molinux${EC}"
-    echo "         Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
-    echo
-    echo -e "-------------------------------------------------------------"
-    echo -e "      Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
-    echo -e "-------------------------------------------------------------"
-    echo
-    echo " --------------------------------------------------"
-    echo
-    echo
-    read -n 1 -s -r -p "Press any key to continue..."
-    echo
-    echo
+    # apt install bacularis bacularis-lighttpd
+    # systemctl restart bacularis-lighttpd
+    
     ###read -s -p " Please, fill with your Bacularis Key: " bacularis_key
     ##python3 -c 'import maskpass; import os; pwd = maskpass.askpass(prompt="Password: ", mask="*"); os.system(f"export VAR1={pwd}")'
     ###python3 -c "import os; os.system(f'export bacularis_key="{pwd}"')"
@@ -397,21 +381,43 @@ function install_bacularis()
         https://packages.bacularis.app/stable/debian bookworm main" \
         >> /etc/apt/sources.list.d/bacularis-app.list
         apt-get update
-        apt-get install -y bacularis-lighttpd
+        apt-get install -y bacularis bacularis-apache2
+        a2enmod rewrite
+        a2enmod proxy_fcgi
+        a2enconf php*-fpm
+        a2ensite bacularis
+        systemctl restart apache2
 
     elif [ "$OS" == "centos" ]; then
-        yum install -y bacula-client
+        # yum install -y bacula-client
+        echo TODO
     fi
-
-    systemctl enable bacula-fd.service
-
-    systemctl start bacula-fd.service
-
-    for i in $(ls /opt/bacula/bin); do
-        ln -s /opt/bacula/bin/$i /usr/sbin/$i;
-    done
+    clear
+    server_ip=$(hostname -I | awk '{print $1}')
+    echo -e "-------------------------------------------------------------"
     echo
-    echo "Bacula Client installed with success!"
+    echo -e "               Bacularis is ${GREEN}Installed !${EC}"
+    echo
+    echo
+    echo -e "   Acesse e configure pelo navegador de Internet o Bacularis"
+    echo
+    echo -e "               http://$server_ip:9097/"
+    echo
+    echo -e "               Login: admin | Senha: admin"
+    echo
+    echo 
+    echo 
+    echo -e "         Developed by Marcus Molinero aka ${RED}Molinux${EC}"
+    echo "    Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
+    echo
+    echo -e "-------------------------------------------------------------"
+    echo -e "      Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
+    echo -e "-------------------------------------------------------------"
+    echo
+    echo
+    echo
+    read -n 1 -s -r -p "Press any key to continue..."
+    echo
     echo
 }
 
