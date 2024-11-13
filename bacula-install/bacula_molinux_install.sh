@@ -444,9 +444,9 @@ function menu()
         echo "   2) Install Bacula with MySQL"
         echo "   3) Install Bacula Client only"
         echo "   4) Install Bacula Storage only (Only PostgreSQL)"
-        echo "   5) Exit"
-        echo "   6) Install Bacularis"
-        read -p " Select an option [1-5]: " option
+        echo "   5) Install Bacularis"
+        echo "   6) Exit"
+        read -p " Select an option [1-6]: " option
         echo
         case $option in
             1) # Install Bacula with PostgreSQL
@@ -465,13 +465,14 @@ function menu()
                install_only_storage
                read -p "Press [enter] key to continue..." readenterkey
                ;;
-            5) echo
-               banner
-               ;;
-            6) # Install Bacularis
+            5) # Install Bacularis
                download_bacularis_key
                read_bacularis_key
                install_bacularis
+               ;;
+            6) echo
+               banner
+               exit
                ;;
             *)
                echo "Invalid option"
