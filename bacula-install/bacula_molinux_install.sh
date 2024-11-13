@@ -436,6 +436,7 @@ function menu()
         echo -e " OS Supported: ${RED}Debian${EC} | ${ORANGE}Ubuntu${EC} | ${GREEN}CentOS${EC} | ${ORACLE}Oracle Linux${EC}"
         echo " You can find all approved versions at: https://abre.ai/bacula-molinux-approved"
         echo " What about support me ? https://www.buymeacoffee.com/molinux"
+        echo " Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
         echo " Version: ${version}"
         echo " =================================================="
         echo
@@ -444,7 +445,7 @@ function menu()
         echo "   2) Install Bacula with MySQL"
         echo "   3) Install Bacula Client only"
         echo "   4) Install Bacula Storage only (Only PostgreSQL)"
-        echo "   5) Install Bacularis"
+        echo "   5) Install Bacularis (Web Interface)"
         echo "   6) Exit"
         read -p " Select an option [1-6]: " option
         echo
