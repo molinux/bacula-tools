@@ -147,9 +147,9 @@ function read_bacularis_key()
 # Download Bacula Key
 function download_bacularis_key()
 {
-    wget -c https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc -O /tmp/Bacula-4096-Distribution-Verification-key.asc
     if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
-        apt-key add /tmp/Bacula-4096-Distribution-Verification-key.asc
+        wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
+        echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
     elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
         rpm --import /tmp/Bacula-4096-Distribution-Verification-key.asc
     else
@@ -233,7 +233,7 @@ deb-src http://repo.mysql.com/apt/debian/ ${codename} mysql-5.7" > /etc/apt/sour
         systemctl enable mysql
         systemctl start mysql
 
-    elif [ "$OS" == "centos" -o "$OS" == "oracle"]; then
+    elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
         rpm --import /tmp/RPM-GPG-KEY-mysql
         wget -c http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm -O /tmp/mysql57-community-release-el7-9.noarch.rpm
         rpm -ivh /tmp/mysql57-community-release-el7-9.noarch.rpm
@@ -375,11 +375,15 @@ function install_only_client()
 #===============================================================================
 # TODO
 # Install Bacularis
-function install_only_client()
+function install_bacularis()
 {
     if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+        echo "# Bacularis - Debian 12 Bookworm package repository \
+        deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] \
+        https://packages.bacularis.app/stable/debian bookworm main" \
+        > /etc/apt/sources.list.d/bacularis-app.list
         apt-get update
-        apt-get install -y bacula-client
+        # apt-get install -y bacula-client
 
     elif [ "$OS" == "centos" ]; then
         yum install -y bacula-client
@@ -496,10 +500,10 @@ elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
 fi
 
 envs
-#download_bacula_key
-#read_bacula_key
-#download_bacularis_key
+download_bacula_key
+read_bacula_key
+download_bacularis_key
 read_bacularis_key
 create_bacula_repository
-#menu
+menu
 banner
