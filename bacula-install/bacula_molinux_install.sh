@@ -466,7 +466,7 @@ function menu()
                read -p "Press [enter] key to continue..." readenterkey
                ;;
             5) echo
-               exit
+               banner
                ;;
             6) # Install Bacularis
                download_bacularis_key
