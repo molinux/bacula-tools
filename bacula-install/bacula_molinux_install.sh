@@ -97,7 +97,8 @@ function download_bacula_key()
     wget -c https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc -O /tmp/Bacula-4096-Distribution-Verification-key.asc
     if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
         # apt-key add /tmp/Bacula-4096-Distribution-Verification-key.asc
-        wget -qO- https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc | gpg --dearmor > /usr/share/keyrings/Bacula-4096-Distribution-Verification-key.gpg
+         wget -qO- https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc > /etc/apt/trusted.gpg.d/Bacula-4096-Distribution-Verification-key.asc
+        # wget -qO- https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc | gpg --dearmor > /usr/share/keyrings/Bacula-4096-Distribution-Verification-key.gpg
     elif [ "$OS" == "centos" -o "$OS" == "oracle" ]; then
         rpm --import /tmp/Bacula-4096-Distribution-Verification-key.asc
     else
@@ -384,7 +385,7 @@ function install_bacularis()
         https://packages.bacularis.app/stable/debian bookworm main" \
         > /etc/apt/sources.list.d/bacularis-app.list
         apt-get update
-        # apt-get install -y bacula-client
+        apt-get install -y bacularis-lighttpd
 
     elif [ "$OS" == "centos" ]; then
         yum install -y bacula-client
@@ -450,6 +451,8 @@ function menu()
                exit
                ;;
             6) # Install Bacularis
+               download_bacularis_key
+               read_bacularis_key
                install_bacularis
                ;;
             *)
@@ -503,8 +506,8 @@ fi
 envs
 download_bacula_key
 read_bacula_key
-download_bacularis_key
-read_bacularis_key
+#download_bacularis_key
+#read_bacularis_key
 create_bacula_repository
 menu
 banner
