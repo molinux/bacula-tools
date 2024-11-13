@@ -120,14 +120,15 @@ function read_bacularis_key()
     echo " This key is obtained with a registration in Bacularis.app"
     echo " https://users.bacularis.com/"
     read -p " Please, fill with your Bacularis User: " bacularis_user
-    read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
+    # read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
+    read -p " Please, fill with your Bacularis Password: " bacularis_pass
     echo
    # echo -e User: $bacularis_user
    # echo -e Password: $bacularis_pass
     wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
     echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
-    echo "# Bacularis - Debian 11 Bullseye package repository
-    deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://packages.bacularis.app/stable/debian bullseye main" > /etc/apt/sources.list.d/bacularis-app.list
+    echo "# Bacularis - Debian 11 Bullseye package repository" > /etc/apt/sources.list.d/bacularis-app.list
+    echo "deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://packages.bacularis.app/stable/debian bullseye main" >> /etc/apt/sources.list.d/bacularis-app.list
     apt update
     apt install bacularis bacularis-lighttpd
     systemctl restart bacularis-lighttpd
@@ -137,6 +138,7 @@ function read_bacularis_key()
     echo " This key is obtained with a registration in Bacularis.app"
     echo " https://users.bacularis.com/"
     echo " --------------------------------------------------"
+    pause
     ###read -s -p " Please, fill with your Bacularis Key: " bacularis_key
     ##python3 -c 'import maskpass; import os; pwd = maskpass.askpass(prompt="Password: ", mask="*"); os.system(f"export VAR1={pwd}")'
     ###python3 -c "import os; os.system(f'export bacularis_key="{pwd}"')"
