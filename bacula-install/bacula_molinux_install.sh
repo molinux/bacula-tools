@@ -34,26 +34,6 @@ version="2.0.0 - 15 Nov 2024"
 # New Relase ! This time I spend a lot of time refactoring this code and now we have
 # Bacula and Bacularis installation consolidated and some UX improvements
 
-# BUG: Erro
-
-# DEBUG: Verificar
-
-# DEPLOY: Colocar em produção
-
-# EXPERIMENTAL: Testar fucionalidades
-
-# FIXME: Corrigir
-
-# HACK: Gambiarra
-
-# INFO: Informação Importante
-
-# NOTE: Nota explicativa
-
-# TEST: Testar funcionalidade
-
-# TODO: Pendente
-
 
 
 #===============================================================================
@@ -148,7 +128,7 @@ function read_bacularis_key()
 {
     #python_deps
     clear
-    if [ ! -v bacularis_user ]; then
+    if [[ ! -v $bacularis_user ]]; then
         echo " --------------------------------------------------"
         echo " Inform your Bacularis Key"
         echo " This key is obtained with a registration in Bacularis.app"
@@ -156,13 +136,12 @@ function read_bacularis_key()
         read -p " Please, fill with your Bacularis User: " bacularis_user
         # read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
     fi
-    if [ ! -v bacularis_pass ]; then
+    if [[ ! -v $bacularis_pass ]]; then
         read -p " Please, fill with your Bacularis Password: " bacularis_pass
         echo
     # echo -e User: $bacularis_user
     # echo -e Password: $bacularis_pass
     fi
-    # FIXME: Somente para distros DEB
     if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
         echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
@@ -412,7 +391,6 @@ function install_only_client()
 }
 
 #===============================================================================
-# TODO
 # Install Bacularis
 function install_bacularis()
 {
@@ -429,7 +407,8 @@ function install_bacularis()
         a2enconf php*-fpm
         a2ensite bacularis
         systemctl restart apache2
-# TODO: Rocky Linux
+
+# TODO: Testes no Rocky Linux
     elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
         {
         echo "# Bacularis - $OS $codename package repository" 
@@ -465,7 +444,7 @@ function install_bacularis()
     echo "    Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
     echo
     echo -e "-------------------------------------------------------------"
-    echo -e "      Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
+    echo -e "      Que tal me apoiar ? ${BOLDGREEN}PIX: molinerobr@yahoo.com.br${EC}"
     echo -e "-------------------------------------------------------------"
     echo
     echo
@@ -490,7 +469,7 @@ function menu()
         echo -e " OS Supported: ${RED}Debian${EC} | ${ORANGE}Ubuntu${EC} | ${BOLDRED}RHEL${EC} | ${BOLDBLUE}Alma Linux${EC} | ${GREEN}Rocky Linux${EC} | ${ORACLE}Oracle Linux${EC}"
         echo " You can find all approved versions at: https://abre.ai/bacula-molinux-approved"
         echo " What about support me ? https://www.buymeacoffee.com/molinux"
-        echo -e " Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
+        echo -e " Que tal me apoiar ? ${BOLDGREEN}PIX: molinerobr@yahoo.com.br${EC}"
         echo " Version: ${version}"
         echo " =================================================="
         echo
