@@ -431,7 +431,7 @@ function install_bacularis()
     elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
         {
         echo "# Bacularis - $OS $codename package repository" 
-        echo '[bacularis-app]' >> /etc/yum.repos.d/bacularis.repo
+        echo '[bacularis-app]'
         echo "name=$OS $codename package repository"
         echo "baseurl=https://packages.bacularis.app/stable/$OS $codename"
         echo "gpgcheck=1"
