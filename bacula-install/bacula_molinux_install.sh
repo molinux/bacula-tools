@@ -102,6 +102,8 @@ EC="\e[0m"
 # shellcheck source=bacula_molinux_install.conf
 source $PWD/bacula_molinux_install.conf
 
+export OS=$(grep -E "^ID=" < /etc/os-release | sed 's/.*=//g' | tr -d \")
+
 #===============================================================================
 # Install Python tools
 function python_deps()
@@ -415,6 +417,7 @@ function install_only_client()
 # Install Bacularis
 function install_bacularis()
 {
+    OS=$(grep -E "^ID=" < /etc/os-release | sed 's/.*=//g' | tr -d \")
     if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         echo "# Bacularis - Debian 12 Bookworm package repository > /etc/apt/sources.list.d/bacularis-app.list"
         echo "deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] \
@@ -428,8 +431,10 @@ function install_bacularis()
         a2ensite bacularis
         systemctl restart apache2
 # TODO: Rocky Linux
+# DEBUG: Criação do repositorio
     elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
         {
+            OS=`$OS | cut -d"`
         echo "# Bacularis - $OS $codename package repository" 
         echo '[bacularis-app]'
         echo "name=$OS $codename package repository"
@@ -440,7 +445,6 @@ function install_bacularis()
         echo "password=$bacularis_pass"
         echo "enabled=1"
         } >> /etc/yum.repos.d/bacularis.repo
-EOF
     fi
     clear
     server_ip=$(hostname -I | awk '{print $1}')
@@ -561,7 +565,7 @@ fi
 
 if [[ -e /etc/debian_version ]]; then
 # if [[ -e /etc/os-release ]]; then
-    OS=$(grep -E "^ID=" < /etc/os-release | sed 's/.*=//g')
+    OS=$(grep -E "^ID=" < /etc/os-release | sed 's/.*=//g' | tr -d \")
     codename=$(grep "VERSION_CODENAME" < /etc/os-release | sed 's/.*=//g')
 elif [[ -e /etc/centos-release || -e /etc/redhat-release || -e /etc/oracle-release || -e /etc/almalinux-release ]]; then
     setenforce 0
@@ -570,7 +574,7 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release || -e /etc/oracle-relea
     firewall-cmd --permanent --zone=public --add-port=9101-9103/tcp
     systemctl restart firewalld
     # OS=centos
-    OS=$(grep -E "^ID=" < /etc/os-release | sed 's/.*=//g')
+    OS=$(grep -E "^ID=" < /etc/os-release | sed 's/.*=//g' | tr -d \")
     codename=$(grep "VERSION_ID" < /etc/os-release | sed 's/[^0-9.]//g' | cut -d . -f1)
 else
     echo "Looks like you aren't running this installer on Debian, Ubuntu or CentOS"
