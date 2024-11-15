@@ -57,7 +57,7 @@ version="1.2.1 - 18 Feb 2024"
 
 
 
-//TODO: Criar arquivo de confs (chaves do Bacula e Bacularis)
+# TODO: Criar arquivo de confs (chaves do Bacula e Bacularis)
 
 
 #===============================================================================
@@ -149,7 +149,7 @@ function read_bacularis_key()
 {
     #python_deps
     clear
-    if [ -v $bacularis_user ]; then
+    if [ ! -v bacularis_user ]; then
         echo " --------------------------------------------------"
         echo " Inform your Bacularis Key"
         echo " This key is obtained with a registration in Bacularis.app"
@@ -157,7 +157,7 @@ function read_bacularis_key()
         read -p " Please, fill with your Bacularis User: " bacularis_user
         # read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
     fi
-    if [ ! -v $bacularis_pass ]; then
+    if [ ! -v bacularis_pass ]; then
         read -p " Please, fill with your Bacularis Password: " bacularis_pass
         echo
     # echo -e User: $bacularis_user
@@ -426,19 +426,20 @@ function install_bacularis()
         a2enconf php*-fpm
         a2ensite bacularis
         systemctl restart apache2
-//TODO: Rocky Linux
+# TODO: Rocky Linux
     elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
-        cat < EOF > /etc/yum.repos.d/bacularis.repo 
-        \# Bacularis - AlmaLinux 9 package repository
-        [bacularis-app]
-        name=$OS $codename package repository
-        baseurl=https://packages.bacularis.app/stable/"$OS""$codename"
-        gpgcheck=1
-        gpgkey=https://packages.bacularis.app/bacularis.pub
-        username=$bacularis_user
-        password=$bacularis_pass
-        enabled=1
-        EOF
+        {
+        echo "# Bacularis - $OS $codename package repository" 
+        echo '[bacularis-app]' >> /etc/yum.repos.d/bacularis.repo
+        echo "name=$OS $codename package repository"
+        echo "baseurl=https://packages.bacularis.app/stable/$OS $codename"
+        echo "gpgcheck=1"
+        echo "gpgkey=https://packages.bacularis.app/bacularis.pub"
+        echo "username=$bacularis_user"
+        echo "password=$bacularis_pass"
+        echo "enabled=1"
+        } >> /etc/yum.repos.d/bacularis.repo
+EOF
     fi
     clear
     server_ip=$(hostname -I | awk '{print $1}')
