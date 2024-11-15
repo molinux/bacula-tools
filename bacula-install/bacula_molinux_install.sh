@@ -92,7 +92,7 @@ function python_deps()
 # Read bacula key
 function read_bacula_key()
 {
-    if [ ! -v bacula_key ]; then
+    if [ -z "$bacula_key" ]; then
         clear
         echo " --------------------------------------------------"
         echo " Inform your Bacula Key"
@@ -109,9 +109,7 @@ function download_bacula_key()
 {
     wget -c https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc -O /tmp/Bacula-4096-Distribution-Verification-key.asc
     if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
-        # apt-key add /tmp/Bacula-4096-Distribution-Verification-key.asc
          wget -qO- https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc > /etc/apt/trusted.gpg.d/Bacula-4096-Distribution-Verification-key.asc
-        # wget -qO- https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc | gpg --dearmor > /usr/share/keyrings/Bacula-4096-Distribution-Verification-key.gpg
     elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
         rpm --import /tmp/Bacula-4096-Distribution-Verification-key.asc
     else
@@ -128,19 +126,16 @@ function read_bacularis_key()
 {
     #python_deps
     clear
-    if [[ ! -v $bacularis_user ]]; then
+    if [ -z "$bacularis_user" ]; then
         echo " --------------------------------------------------"
         echo " Inform your Bacularis Key"
         echo " This key is obtained with a registration in Bacularis.app"
         echo " https://users.bacularis.com/"
         read -p " Please, fill with your Bacularis User: " bacularis_user
-        # read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
     fi
-    if [[ ! -v $bacularis_pass ]]; then
+    if [ -z "$bacularis_pass" ]; then
         read -p " Please, fill with your Bacularis Password: " bacularis_pass
         echo
-    # echo -e User: $bacularis_user
-    # echo -e Password: $bacularis_pass
     fi
     if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
@@ -149,8 +144,6 @@ function read_bacularis_key()
         echo "deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://packages.bacularis.app/stable/debian bullseye main" >> /etc/apt/sources.list.d/bacularis-app.list
         apt update
     fi
-    # apt install bacularis bacularis-lighttpd
-    # systemctl restart bacularis-lighttpd
     
     ###read -s -p " Please, fill with your Bacularis Key: " bacularis_key
     ##python3 -c 'import maskpass; import os; pwd = maskpass.askpass(prompt="Password: ", mask="*"); os.system(f"export VAR1={pwd}")'
@@ -209,6 +202,7 @@ function create_bacula_repository()
         else
           url="https://www.bacula.org/packages/${bacula_key}/rpms/${bacula_version}/el${codename}/x86_64/"
         fi
+        
         echo "[Bacula-Community]
 name=RHEL - Bacula - Community
 baseurl=${url}
@@ -219,7 +213,6 @@ gpgcheck=0" > /etc/yum.repos.d/bacula-community.repo
         echo "Is not possible to install the Bacula Key"
     fi
 
-    # if wget --spider "${url}" 2>/dev/null; then
     if curl --head --silent "${url}" 2>/dev/null; then
         break
     else
@@ -370,7 +363,7 @@ function install_only_storage()
 # Install Cliente Only
 function install_only_client()
 {
-    if [ "$OS" == "debian" -o "$OS" == "ubuntu" ]; then
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
         apt-get update
         apt-get install -y bacula-client
 
