@@ -11,6 +11,7 @@
 # version="1.1.0 - 12 Apr 2023"
 # version="1.2.0 - 07 Dec 2023"
 version="1.2.1 - 18 Feb 2024"
+# version="2.0.0 - ?? Nov 2024"
 
 # Release 1.0.8 - by Molinux
 # Oracle support in this release !
@@ -31,7 +32,32 @@ version="1.2.1 - 18 Feb 2024"
 
 # Release 2.0.0 - by Molinux
 # New Relase ! This time I spend a lot of time refactoring this code and now we have
-# Bacula and Bacularis installation consolidated
+# Bacula and Bacularis installation consolidated and some UX improvements
+
+# BUG: Erro
+
+# DEBUG: Verificar
+
+# DEPLOY: Colocar em produção
+
+# EXPERIMENTAL: Testar fucionalidades
+
+# FIXME: Corrigir
+
+# HACK: Gambiarra
+
+# INFO: Informação Importante
+
+# NOTE: Nota explicativa
+
+# TEST: Testar funcionalidade
+
+# TODO: Pendente
+
+
+
+
+//TODO: Criar arquivo de confs (chaves do Bacula e Bacularis)
 
 
 #===============================================================================
@@ -73,6 +99,8 @@ BOLDBLUE="\e[1m${BLUE}"
 EC="\e[0m"
 }
 
+source $PWD/bacula_molinux_install.conf
+
 #===============================================================================
 # Install Python tools
 function python_deps()
@@ -85,12 +113,14 @@ function python_deps()
 # Read bacula key
 function read_bacula_key()
 {
-    clear
-    echo " --------------------------------------------------"
-    echo " Inform your Bacula Key"
-    echo " This key is obtained with a registration in Bacula.org."
-    echo " https://www.bacula.org/bacula-binary-package-download/"
-    read -p " Please, fill with your Bacula Key: " bacula_key
+    if [ ! -v $bacula_key ]; then
+        clear
+        echo " --------------------------------------------------"
+        echo " Inform your Bacula Key"
+        echo " This key is obtained with a registration in Bacula.org."
+        echo " https://www.bacula.org/bacula-binary-package-download/"
+        read -p " Please, fill with your Bacula Key: " bacula_key
+    fi
 }
 
 
@@ -119,16 +149,20 @@ function read_bacularis_key()
 {
     #python_deps
     clear
-    echo " --------------------------------------------------"
-    echo " Inform your Bacularis Key"
-    echo " This key is obtained with a registration in Bacularis.app"
-    echo " https://users.bacularis.com/"
-    read -p " Please, fill with your Bacularis User: " bacularis_user
-    # read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
-    read -p " Please, fill with your Bacularis Password: " bacularis_pass
-    echo
-   # echo -e User: $bacularis_user
-   # echo -e Password: $bacularis_pass
+    if [ -v $bacularis_user ]; then
+        echo " --------------------------------------------------"
+        echo " Inform your Bacularis Key"
+        echo " This key is obtained with a registration in Bacularis.app"
+        echo " https://users.bacularis.com/"
+        read -p " Please, fill with your Bacularis User: " bacularis_user
+        # read -s -p " Please, fill with your Bacularis Password: " bacularis_pass
+    fi
+    if [ ! -v $bacularis_pass ]; then
+        read -p " Please, fill with your Bacularis Password: " bacularis_pass
+        echo
+    # echo -e User: $bacularis_user
+    # echo -e Password: $bacularis_pass
+    fi
     wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
     echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
     echo "# Bacularis - Debian 11 Bullseye package repository" > /etc/apt/sources.list.d/bacularis-app.list
@@ -395,14 +429,14 @@ function install_bacularis()
 //TODO: Rocky Linux
     elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
         cat < EOF > /etc/yum.repos.d/bacularis.repo 
-        # Bacularis - AlmaLinux 9 package repository
+        \# Bacularis - AlmaLinux 9 package repository
         [bacularis-app]
         name=$OS $codename package repository
         baseurl=https://packages.bacularis.app/stable/"$OS""$codename"
         gpgcheck=1
         gpgkey=https://packages.bacularis.app/bacularis.pub
-        username=RQkh0bjDZoOw5JeKdYtn
-        password=vJPkitFIQqlDKoS1dAUc87VN4Tu9gxhObMRpH5sG
+        username=$bacularis_user
+        password=$bacularis_pass
         enabled=1
         EOF
     fi
@@ -447,7 +481,7 @@ function menu()
         echo " Based on Wanderlei Huttel version"
         echo " Author: Marcus Molinux Molinero"
         echo " Email:  marcus.molinero@bacula.com.br"
-        echo -e " OS Supported: ${RED}Debian${EC} | ${ORANGE}Ubuntu${EC} | ${BOLDRED}RedHat${EC} | ${BOLDBLUE}Alma Linux${EC} | ${BOLDGREEN}Rocky Linux${EC} | ${ORACLE}Oracle Linux${EC}"
+        echo -e " OS Supported: ${RED}Debian${EC} | ${ORANGE}Ubuntu${EC} | ${BOLDRED}RHEL${EC} | ${BOLDBLUE}Alma Linux${EC} | ${BOLDGREEN}Rocky Linux${EC} | ${ORACLE}Oracle Linux${EC}"
         echo " You can find all approved versions at: https://abre.ai/bacula-molinux-approved"
         echo " What about support me ? https://www.buymeacoffee.com/molinux"
         echo -e " Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
