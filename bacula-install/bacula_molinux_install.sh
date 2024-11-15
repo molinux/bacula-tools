@@ -10,8 +10,8 @@
 # version="1.0.9 - 28 Mar 2023"
 # version="1.1.0 - 12 Apr 2023"
 # version="1.2.0 - 07 Dec 2023"
-version="1.2.1 - 18 Feb 2024"
-# version="2.0.0 - ?? Nov 2024"
+# version="1.2.1 - 18 Feb 2024"
+version="2.0.0 - 15 Nov 2024"
 
 # Release 1.0.8 - by Molinux
 # Oracle support in this release !
@@ -56,10 +56,6 @@ version="1.2.1 - 18 Feb 2024"
 
 
 
-
-# TODO: Criar arquivo de confs (chaves do Bacula e Bacularis)
-
-
 #===============================================================================
 function tools()
 {
@@ -75,7 +71,7 @@ function banner()
    echo "         Caso encontre algum bug, reporte pelo Telegram (@Molinux)"
    echo
    echo -e "-------------------------------------------------------------"
-   echo -e "      Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
+   echo -e "      Que tal me apoiar ? ${BOLDGREEN}PIX: molinerobr@yahoo.com.br${EC}"
    echo -e "-------------------------------------------------------------"
    echo
    echo
@@ -166,11 +162,14 @@ function read_bacularis_key()
     # echo -e User: $bacularis_user
     # echo -e Password: $bacularis_pass
     fi
-    wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
-    echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
-    echo "# Bacularis - Debian 11 Bullseye package repository" > /etc/apt/sources.list.d/bacularis-app.list
-    echo "deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://packages.bacularis.app/stable/debian bullseye main" >> /etc/apt/sources.list.d/bacularis-app.list
-    apt update
+    # FIXME: Somente para distros DEB
+    if [ "$OS" == "debian" ] || [ "$OS" == "ubuntu" ]; then
+        wget -qO- https://packages.bacularis.app/bacularis.pub | gpg --dearmor > /usr/share/keyrings/bacularis-archive-keyring.gpg
+        echo "machine https://packages.bacularis.app login $bacularis_user password $bacularis_pass" > /etc/apt/auth.conf.d/bacularis.conf
+        echo "# Bacularis - Debian 11 Bullseye package repository" > /etc/apt/sources.list.d/bacularis-app.list
+        echo "deb [signed-by=/usr/share/keyrings/bacularis-archive-keyring.gpg] https://packages.bacularis.app/stable/debian bullseye main" >> /etc/apt/sources.list.d/bacularis-app.list
+        apt update
+    fi
     # apt install bacularis bacularis-lighttpd
     # systemctl restart bacularis-lighttpd
     
@@ -488,7 +487,7 @@ function menu()
         echo " Based on Wanderlei Huttel version"
         echo " Author: Marcus Molinux Molinero"
         echo " Email:  marcus.molinero@bacula.com.br"
-        echo -e " OS Supported: ${RED}Debian${EC} | ${ORANGE}Ubuntu${EC} | ${BOLDRED}RHEL${EC} | ${BOLDBLUE}Alma Linux${EC} | ${BOLDGREEN}Rocky Linux${EC} | ${ORACLE}Oracle Linux${EC}"
+        echo -e " OS Supported: ${RED}Debian${EC} | ${ORANGE}Ubuntu${EC} | ${BOLDRED}RHEL${EC} | ${BOLDBLUE}Alma Linux${EC} | ${GREEN}Rocky Linux${EC} | ${ORACLE}Oracle Linux${EC}"
         echo " You can find all approved versions at: https://abre.ai/bacula-molinux-approved"
         echo " What about support me ? https://www.buymeacoffee.com/molinux"
         echo -e " Que tal me apoiar ? ${GREEN}PIX: molinerobr@yahoo.com.br${EC}"
