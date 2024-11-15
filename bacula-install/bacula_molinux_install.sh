@@ -99,6 +99,7 @@ BOLDBLUE="\e[1m${BLUE}"
 EC="\e[0m"
 }
 
+# shellcheck source=bacula_molinux_install.conf
 source $PWD/bacula_molinux_install.conf
 
 #===============================================================================
@@ -113,7 +114,7 @@ function python_deps()
 # Read bacula key
 function read_bacula_key()
 {
-    if [ ! -v $bacula_key ]; then
+    if [ ! -v bacula_key ]; then
         clear
         echo " --------------------------------------------------"
         echo " Inform your Bacula Key"
@@ -568,7 +569,8 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release || -e /etc/oracle-relea
     sudo sed -i "s/enforcing/disabled/g" /etc/sysconfig/selinux
     firewall-cmd --permanent --zone=public --add-port=9101-9103/tcp
     systemctl restart firewalld
-    OS=centos
+    # OS=centos
+    OS=$(grep -E "^ID=" < /etc/os-release | sed 's/.*=//g')
     codename=$(grep "VERSION_ID" < /etc/os-release | sed 's/[^0-9.]//g' | cut -d . -f1)
 else
     echo "Looks like you aren't running this installer on Debian, Ubuntu or CentOS"
