@@ -431,20 +431,21 @@ function install_bacularis()
         a2ensite bacularis
         systemctl restart apache2
 # TODO: Rocky Linux
-# DEBUG: Criação do repositorio
     elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
         {
-            OS=`$OS | cut -d"`
         echo "# Bacularis - $OS $codename package repository" 
         echo '[bacularis-app]'
         echo "name=$OS $codename package repository"
-        echo "baseurl=https://packages.bacularis.app/stable/$OS $codename"
+        echo "baseurl=https://packages.bacularis.app/stable/$OS$codename"
         echo "gpgcheck=1"
         echo "gpgkey=https://packages.bacularis.app/bacularis.pub"
         echo "username=$bacularis_user"
         echo "password=$bacularis_pass"
         echo "enabled=1"
-        } >> /etc/yum.repos.d/bacularis.repo
+        } > /etc/yum.repos.d/bacularis.repo
+        dnf install bacularis bacularis-httpd bacularis-selinux
+        systemctl restart httpd
+
     fi
     clear
     server_ip=$(hostname -I | awk '{print $1}')
