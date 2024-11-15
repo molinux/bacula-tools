@@ -1,11 +1,12 @@
 Bacula Community Molinux Install is approved in the following distributions and versions:
 
-| Distro       | Version                       |
-| :---         | :---                          |
-| Debian       | 11 (bullseye)                 | 
-| Oracle Linux | 9.3                           |
-| Ubuntu       | 22.04.4 LTS (Jammy Jellyfish) | 
-| Rocky        | Rocky Linux 9.3 (Blue Onyx)   |
+| Distro       | Version                          |
+|:-------------|:---------------------------------|
+| Debian       | 11 (bullseye)                    |
+| Oracle Linux | 9.3                              |
+| Ubuntu       | 22.04.4 LTS (Jammy Jellyfish)    |
+| Alma Linux   | Rocky Linux 9.4 (Seafoam Ocelot) |
+| Rocky        | Rocky Linux 9.3 (Blue Onyx)      |
 
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
@@ -44,9 +45,9 @@ Bacula Community Molinux Install is approved in the following distributions and 
   <p align="center">
     Bacula Community Molinux Install
     <br />
-    <a href="https://github.com/molinux/bacula-tools/blob/master/bacula-install/README-pt_BR.md"><strong>Portugês »</strong></a>
     <a href="https://github.com/molinux/bacula-tools/blob/master/bacula-install/README-es.md"><strong>Español »</strong></a>
-    <a href="https://github.com/molinux/bacula-tools/blob/master/bacula-install/README-en.md"><strong>English</strong></a>
+    <a href="https://github.com/molinux/bacula-tools/blob/master/bacula-install/README-pt_BR.md"><strong>Portugês »</strong></a>
+    <a href="https://github.com/molinux/bacula-tools/blob/master/bacula-install/README-en.md"><strong>English »</strong></a>
     <br />
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
@@ -88,16 +89,23 @@ Bacula Community Molinux Install is approved in the following distributions and 
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-> Bacula Community Molinux Install (BCMI) is the ultimate tool that you need to install your Bacula Community server (and environment)
-
----
+There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
 Here's why:
 
-* Automatic installation with just a few steps
-* Possibility of installing isolated components (storage and/or client)
-* Bacula and Bacularis installation in the same place
-* Documentation in Portuguese, English and Spanish
+* Your time should be focused on creating something amazing. A project that solves a problem and helps others
+* You shouldn't be doing the same tasks over and over like creating a README from scratch
+* You should implement DRY principles to the rest of your life :smile:
+
+Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+
+Use the `BLANK_README.md` to get started.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Built With
+
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -109,19 +117,13 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-To install Bacula Community and/or Bacularis through BCMI, you need to create your account at [bacula.org](https://www.bacula.org/bacula-binary-package-download/) and [bacularis.app](https://users.bacularis.com/user/login/) previously and get you key/account/password
+This is an example of how to list things you need to use the software and how to install them.
 
-After then, you put it on `bacula_molinux_install.conf` file as the example below
+* npm
 
-```bash
-bacula_key="69549348539sdvsd2623"
-bacularis_user="sdfgh98ysdfgsdfg"
-bacularis_pass="sdlfgsdfg-WEWERTBsdfsdfg"
-```
-
-Or you can specify during the installation
-
-
+  ```sh
+  npm install npm@latest -g
+  ```
 
 ### Installation
 
@@ -198,7 +200,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Marcus Molinero - [linkedin](https://linkedin.com/in/marcus-molinero) - <email@example.com>
+Your Name - [@your_twitter](https://twitter.com/your_username) - <email@example.com>
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
@@ -234,7 +236,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: assets/bcmi-001.png
+[product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

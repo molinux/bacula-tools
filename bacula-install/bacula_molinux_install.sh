@@ -305,7 +305,7 @@ function install_with_postgresql()
     systemctl start bacula-sd.service
     systemctl start bacula-dir.service
 
-    for i in $(/opt/bacula/bin); do
+    for i in $(/opt/bacula/bin/); do
         ln -s /opt/bacula/bin/"$i" /usr/sbin/"$i";
     done
     sed '/[Aa]ddress/s/=\s.*/= localhost/g' -i  /opt/bacula/etc/bconsole.conf
@@ -522,7 +522,7 @@ function menu()
 # Detect Debian users running the script with "sh" instead of bash
 OS=""
 codename=""
-export bacula_key="6367abb52d166"
+export bacula_key=""
 export DEBIAN_FRONTEND=noninteractive
 clear
 if readlink /proc/$$/exe | grep -q "dash"; then
