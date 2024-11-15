@@ -392,10 +392,19 @@ function install_bacularis()
         a2enconf php*-fpm
         a2ensite bacularis
         systemctl restart apache2
-
+//TODO: Rocky Linux
     elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ]; then
-        # yum install -y bacula-client
-        echo TODO
+        cat < EOF > /etc/yum.repos.d/bacularis.repo 
+        # Bacularis - AlmaLinux 9 package repository
+        [bacularis-app]
+        name=$OS $codename package repository
+        baseurl=https://packages.bacularis.app/stable/"$OS""$codename"
+        gpgcheck=1
+        gpgkey=https://packages.bacularis.app/bacularis.pub
+        username=RQkh0bjDZoOw5JeKdYtn
+        password=vJPkitFIQqlDKoS1dAUc87VN4Tu9gxhObMRpH5sG
+        enabled=1
+        EOF
     fi
     clear
     server_ip=$(hostname -I | awk '{print $1}')
@@ -456,34 +465,42 @@ function menu()
         echo
         case $option in
             1) # Install Bacula with PostgreSQL
-               install_with_postgresql
-               read -p "Press [enter] key to continue..." readenterkey
-               ;;
+                download_bacula_key
+                read_bacula_key
+                install_with_postgresql
+                read -p "Press [enter] key to continue..." readenterkey
+                ;;
             2) # Install Bacula with MySQL
-               install_with_mysql
-               read -p "Press [enter] key to continue..." readenterkey
-               ;;
+                download_bacula_key
+                read_bacula_key
+                install_with_mysql
+                read -p "Press [enter] key to continue..." readenterkey
+                ;;
             3) # Install only Bacula Client
-               install_only_client
-               read -p "Press [enter] key to continue..." readenterkey
-               ;;
+                download_bacula_key
+                read_bacula_key
+                install_only_client
+                read -p "Press [enter] key to continue..." readenterkey
+                ;;
             4) # Install only Bacula Storage
-               install_only_storage
-               read -p "Press [enter] key to continue..." readenterkey
-               ;;
+                download_bacula_key
+                read_bacula_key
+                install_only_storage
+                read -p "Press [enter] key to continue..." readenterkey
+                ;;
             5) # Install Bacularis
-               download_bacularis_key
-               read_bacularis_key
-               install_bacularis
-               ;;
+                download_bacularis_key
+                read_bacularis_key
+                install_bacularis
+                ;;
             6) echo
-               banner
-               exit
-               ;;
+                banner
+                exit
+                ;;
             *)
-               echo "Invalid option"
-               sleep 1
-               ;;
+                echo "Invalid option"
+                sleep 1
+                ;;
         esac
     done
 }
@@ -538,8 +555,8 @@ elif [ "$OS" == "centos" ] || [ "$OS" == "oracle" ] || [ "$OS" == "almalinux" ];
 fi
 
 envs
+menu
 download_bacula_key
 read_bacula_key
 create_bacula_repository
-menu
 banner
