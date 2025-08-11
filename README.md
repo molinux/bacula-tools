@@ -14,6 +14,8 @@ Tools and Scripts for Bacula
 
 **bacula-sqlserver-lab** - Lab to MS SQL Server backup from Bacula sqlserver and/or bpipe plugin utilization
 
+**bacula-volumes-retention** - Use this script if you need to update all volumes retention from a specific pool
+
 **bacularis-install** - Scripts to install Bacularis Web Interface
 
 **baculum-install** - Scripts to install Baculum Web Interface
